@@ -1,0 +1,48 @@
+h2 {
+    padding: 4px 0;
+    font-size: 30px;
+    color: #4f4f50;
+}
+
+.side-col ol {
+    counter-reset: gradient-counter;
+    list-style: none;
+    margin: 1.75rem 0;
+    padding-left: 1rem;
+}
+
+.side-col ol a {
+    text-decoration: none;
+    color: #4f4f50;
+    font: 20px Arial, Helvetica, sans-serif;
+}
+
+.side-col ol li {
+    background: white;
+    border-radius: 0 0.5rem 0.5rem 0.5rem;
+    box-shadow: 0.25rem 0.25rem 0.6rem rgba(0, 0, 0, 0.05), 0 0.5rem 1.125rem rgba(75, 0, 0, 0.05);
+    counter-increment: gradient-counter;
+    margin-top: 1rem;
+    min-height: 3rem;
+    padding: 1rem 1rem 1rem 3rem;
+    position: relative;
+    margin-top: 1em;
+}
+
+li:before {
+    background: #5383d3;
+    border-radius: 1rem 1rem 0 1rem;
+    height: 3rem;
+    left: -1rem;
+    position: absolute;
+    top: -10px;
+    width: 3rem;
+    align-items: flex-end;
+    content: counter(gradient-counter);
+    color: white;
+    display: flex;
+    font: 900 1.5em/1 'Montserrat';
+    justify-content: flex-end;
+    padding: 0.125em 0.25em;
+    z-index: 1;
+}
