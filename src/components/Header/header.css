@@ -1,0 +1,74 @@
+.header-basic-light {
+	padding: 20px 30px;
+	box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.15);
+	height: auto;
+	background-color: #fff;
+}
+
+.header-basic-light .header-limiter {
+	margin: 0 auto;
+}
+
+/* Logo */
+
+.header-basic-light .header-limiter h1 {
+	float: left;
+	font: normal 28px Cookie, Arial, Helvetica, sans-serif;
+	margin: 0;
+	font-size: 40px;
+}
+
+.header-basic-light .header-limiter h1 span {
+	color: #5383d3;
+}
+
+.header-basic-light .header-limiter img {
+	height: 2em;
+	width: 2em;
+	margin-right: 1em;
+}
+
+/* The header links */
+
+.header-basic-light .header-limiter a {
+	color: #4f4f50;
+	text-decoration: none;
+}
+
+.header-basic-light .header-limiter nav {
+	font: 30px Arial, Helvetica, sans-serif;
+	line-height: 75px;
+	float: right;
+	padding-right: 2em;
+}
+
+.header-basic-light .header-limiter nav a {
+	display: inline-block;
+	padding: 0 10px;
+	text-decoration: none;
+	color: #4f4f50;
+}
+
+.header-basic-light .header-limiter nav a:hover {
+	background-color: #5383d3;
+	color: #ffffff;
+	border-radius: 3px;
+}
+
+/* Making the header responsive. */
+
+@media all and (max-width: 990px) {
+	.header-basic-light .header-limiter img {
+		display: none;
+	}
+	.header-basic-light .header-limiter h1 {
+		text-align: center;
+		float: none;
+	}
+	.header-basic-light .header-limiter nav {
+		/* margin-top: 1em; */
+		text-align: center;
+		float: none;
+		padding-right: 0;
+	}
+}
