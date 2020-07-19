@@ -11,7 +11,7 @@ export function Container(props) {
 
 export function MainRow(props) {
     return (
-        <div className="row main-row">
+        <div className="row main-row justify-content-center">
             {props.children}
         </div>
     )
@@ -27,7 +27,7 @@ export function SideCol(props) {
 
 export function MainCol(props) {
     return (
-        <div className="col main-col">
+        <div className="col col-xl-5 main-col">
             {props.children}
         </div>
     )
