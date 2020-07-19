@@ -53,6 +53,9 @@
 	background-color: #5383d3;
 	color: #ffffff;
 	border-radius: 3px;
+	display: inline-block;
+	padding: 0 10px;
+	text-decoration: none;
 }
 
 /* Making the header responsive. */

@@ -21,7 +21,7 @@ const Header = () => {
                 <div className="col-12 col-lg-6">
 
                     <nav>
-                        <a href="/">Dashboard</a>
+                        <a href="/">Home</a>
                         <a href="/clients">Clients</a>
                         <a href="/current">Current</a>
                     </nav>

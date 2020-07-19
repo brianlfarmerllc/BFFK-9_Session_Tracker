@@ -32,3 +32,26 @@ export function MainCol(props) {
         </div>
     )
 }
+
+export function Row (props) {
+    return (
+        <div {...props}>
+            {props.children}
+        </div>
+    )
+}
+
+export function Col (props) {
+    return (
+        <div {...props}>
+            {props.children}
+        </div>
+    )
+}
+export function Cont (props) {
+    return (
+        <div {...props}>
+            {props.children}
+        </div>
+    )
+}
