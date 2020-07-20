@@ -27,7 +27,7 @@ export function SideCol(props) {
 
 export function MainCol(props) {
     return (
-        <div className="col col-xl-5 main-col">
+        <div {...props}>
             {props.children}
         </div>
     )

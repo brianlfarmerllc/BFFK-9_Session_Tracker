@@ -1,48 +1,56 @@
 h2 {
     padding: 4px 0;
+    margin-bottom: 2rem;
     font-size: 30px;
     color: #4f4f50;
 }
 
-.side-col ol {
-    counter-reset: gradient-counter;
-    list-style: none;
-    margin: 1.75rem 0;
-    padding-left: 1rem;
+.side-col ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    background: #fff;
 }
 
-.side-col ol a {
-    text-decoration: none;
+.side-col ul li {
+    list-style: none;
+    padding: 10px;
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+    transition: 0.5s;
+    margin-top: 0.5rem;
     color: #4f4f50;
     font: 20px Arial, Helvetica, sans-serif;
 }
 
-.side-col ol li {
-    background: white;
-    border-radius: 0 0.5rem 0.5rem 0.5rem;
-    box-shadow: 0.25rem 0.25rem 0.6rem rgba(0, 0, 0, 0.05), 0 0.5rem 1.125rem rgba(75, 0, 0, 0.05);
-    counter-increment: gradient-counter;
-    margin-top: 1rem;
-    min-height: 3rem;
-    padding: 1rem 1rem 1rem 3rem;
-    position: relative;
-    margin-top: 1em;
+.side-col ul li:hover {
+    transform: scale(1.05);
+    transform: translateZ(0);
+    cursor: pointer;
+    z-index: 100;
+    background-color: #5383d3;
+    color: white;
+    opacity: 1;
 }
 
-li:before {
-    background: #5383d3;
-    border-radius: 1rem 1rem 0 1rem;
-    height: 3rem;
-    left: -1rem;
-    position: absolute;
-    top: -10px;
-    width: 3rem;
-    align-items: flex-end;
-    content: counter(gradient-counter);
+.side-col ul li span {
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    line-height: 25px;
+    background-color: #5383d3;
     color: white;
-    display: flex;
-    font: 900 1.5em/1 'Montserrat';
-    justify-content: flex-end;
-    padding: 0.125em 0.25em;
-    z-index: 1;
+    display: inline-block;
+    border-radius: 50%;
+    margin-right: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    transform: translateY(-2px);
+}
+
+.side-col ul li:hover span {
+    background-color: white;
+    color: #5383d3;
 }

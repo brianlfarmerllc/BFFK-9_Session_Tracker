@@ -5,13 +5,18 @@ import { Input, Select, FormBtn } from "../../components/FormComponents";
 import API from "../../API"
 import Form from "../../components/Form"
 
-const Clients = ({ newClient, setNewClient, setSelectClient, clientList }) => {
-    // const [clientList, setClientList] = useState([])
+const Clients = ({ newClient, setNewClient, setSelectClient }) => {
 
-    // useEffect(() => {
-    //     API.returnClients()
-    //         .then(res => setClientList([res]))
-    // }, [])
+    const [clientList, setClientList] = useState([])
+
+    useEffect(() => {
+        loadClients()
+    }, [])
+
+    function loadClients() {
+        API.returnClients()
+            .then(res => setClientList(res))
+    }
 
     function handleChange(e) {
         const { name, value } = e.target
@@ -22,10 +27,17 @@ const Clients = ({ newClient, setNewClient, setSelectClient, clientList }) => {
         e.preventDefault()
         API.addClient(newClient)
             .then(res => {
-                setSelectClient({ id: res._id })
+                setSelectClient([res])
                 setNewClient({})
             })
             .catch(err => console.log(err))
+    }
+
+    function selectClient(e) {
+        e.preventDefault()
+        const clientId = e.target.id
+        const selected = clientList.filter(client => client._id === clientId)
+        setSelectClient(selected)
     }
 
     return (
@@ -33,14 +45,14 @@ const Clients = ({ newClient, setNewClient, setSelectClient, clientList }) => {
             <MainRow>
                 <SideCol>
                     <h2>Select Client</h2>
-                    <ol>
+                    <ul>
                         {clientList.length !== 0 ?
-                            clientList.map(client => (
-                                <a href="/clients/home" key={client._id} value={client._id}><li>{client.name}</li></a>
-                            )) : null }
-                    </ol>
+                            clientList.map((client, index) => (
+                                <li onClick={selectClient} key={client._id} id={client._id}><span>{index + 1}</span>{client.name}</li>
+                            )) : null}
+                    </ul>
                 </SideCol>
-                <MainCol>
+                <MainCol className="col col-xl-5 main-col">
                     <Form
                         header="New Client Info"
                     >
