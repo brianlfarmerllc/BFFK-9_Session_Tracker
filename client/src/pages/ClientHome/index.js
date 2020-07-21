@@ -31,7 +31,8 @@ const ClientHome = ({ form, setForm, selectClient, petList }) => {
         e.preventDefault()
         API.addPet({ ...form, clientId: selectClient._id })
             .then(res => {
-                setSelectPet(res)
+                console.log(res)
+                setSelectPet([res])
                 setForm({})
             })
             .catch(err => console.log(err))
