@@ -4,25 +4,42 @@
     font-size: 30px;
     color: #4f4f50;
 }
+
 .side-col hr {
     height: 3px;
     color: #4f4f50;
-    background-color:#4f4f50;
+    background-color: #4f4f50;
     border: none;
     opacity: 0.9;
 }
 
 h5 {
     color: #4f4f50;
-    padding:5px
+    padding: 5px;
+    height: auto;
 }
 
-h5 span {
+.side-col h5 span {
     color: #5383d3;
     margin-left: 2em;
     position: absolute;
     left: 150px;
 }
+
 .side-col {
+    position: relative;
     min-width: 500px;
+}
+
+.main-col {
+    min-width: 500px;
+}
+
+.main-col h5 span {
+    color: #5383d3;
+    
+}
+
+.main-col button {
+    max-width: 200px;
 }

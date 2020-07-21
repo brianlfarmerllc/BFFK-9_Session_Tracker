@@ -23,7 +23,7 @@
     margin-left: 20px;
     box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.15);
     background-color: #fff;
-    height: 75vh;
+    min-height: 75vh;
     border-radius: 4px;
 }
 

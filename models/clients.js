@@ -11,7 +11,7 @@ clientSchema = new Schema(
     source: { type: String, required: true },
   },
   {
-    timestamp: true
+    timestamps: true
   }
 );
 

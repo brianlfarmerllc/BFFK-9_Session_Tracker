@@ -23,6 +23,7 @@ h2 {
     margin-top: 0.5rem;
     color: #4f4f50;
     font: 20px Arial, Helvetica, sans-serif;
+    border-radius: 4px;
 }
 
 .side-col ul li:hover {

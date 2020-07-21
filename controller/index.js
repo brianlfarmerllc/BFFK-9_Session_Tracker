@@ -3,7 +3,7 @@ module.exports = {
   findAll: function (req, res, model) {
     model
       .find(req.query)
-      .sort({ date: -1 })
+      .sort({ createdAt: -1 })
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
