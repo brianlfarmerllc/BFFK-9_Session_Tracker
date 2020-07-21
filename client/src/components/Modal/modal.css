@@ -1,0 +1,27 @@
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    z-index: 500;
+    background-color: rgba(82, 79, 79, 0.351);
+    min-width: 100%;
+    min-height: 100%;
+    border-radius: 4px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-out;
+}
+
+.popup .col {
+    z-index: 15;
+    position: relative;
+    background: #FFFFFF;
+    border-radius: 4px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    margin: 100px auto 100px;
+    overflow: hidden;
+    padding: 3em;
+    max-width: 800px;
+}
+

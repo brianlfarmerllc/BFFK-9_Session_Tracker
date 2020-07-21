@@ -49,7 +49,7 @@ export function Select(props) {
                 name={props.name}
                 onChange={props.handleChange}
             >
-                <option value="" defaultValue>Choose Source</option>
+                <option value="" defaultValue>Choose {props.choose}</option>
                 {props.options.map((option, index) => (
                     <option key={index} value={option}>{option}</option>
                 ))}
