@@ -1,22 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "./clienthome.css"
-import { Container, MainRow, SideCol, MainCol, Row, Col } from "../../components/Grid";
+import { Container, MainRow, SideCol, MainCol} from "../../components/Grid";
 import { Input, Text, FormBtn, Select } from "../../components/FormComponents";
 import Modal from "../../components/Modal"
 import API from "../../API"
 import Form from "../../components/Form"
 
-const ClientHome = ({ form, setForm, selectClient }) => {
+const ClientHome = ({ form, setForm, selectClient, petList }) => {
     const [selectPet, setSelectPet] = useState()
+    const [activePet, setActivePet] = useState({})
+
+    useEffect(() => {
+        const clientPets = petList.filter(pet => pet.clientId === selectClient._id)
+        
+        if (clientPets.length > 0) {
+            setSelectPet(clientPets)
+            setActivePet(clientPets[0])
+        } else {
+            return
+        }
+    }, [])
+
 
     function handleChange(e) {
         const { name, value } = e.target
         setForm({ ...form, [name]: value })
     }
 
-    function handleSubmit(e) {
+    function handlePetSubmit(e) {
         e.preventDefault()
-        console.log({...form, id:selectClient._id})
+        API.addPet({ ...form, clientId: selectClient._id })
+            .then(res => {
+                setSelectPet(res)
+                setForm({})
+            })
+            .catch(err => console.log(err))
     }
 
 
@@ -40,13 +58,17 @@ const ClientHome = ({ form, setForm, selectClient }) => {
                         <hr />
                         {selectPet ?
                             <>
-                                <h5>Name:<span>{selectPet.name}</span></h5>
-                                <h5>Breed:<span>{selectPet.breed}</span></h5>
-                                <h5>Program:<span>{selectPet.program}</span></h5>
-                                <h5>Main Issues:<span>{selectPet.issues}</span></h5>
-                                <h5>Notes:<span>{selectPet.notes}</span></h5>
+                                {selectPet.map((pet, index) => (
+                                    <div key={index}>
+                                        <h5>Name:<span>{pet.name}</span></h5>
+                                        <h5>Breed:<span>{pet.breed}</span></h5>
+                                        <h5>Program:<span>{pet.program}</span></h5>
+                                        <h5>Issues:<span>{pet.issues}</span></h5>
+                                        <h5>Notes:<span>{pet.notes}</span></h5>
+                                    </div>
+                                ))}
                             </>
-                            : null
+                            : <h5>Name:<span>No Pets Assigned</span></h5>
                         }
 
                     </SideCol>
@@ -81,7 +103,7 @@ const ClientHome = ({ form, setForm, selectClient }) => {
                             htmlFor="notes" label="Notes" type="text"
                             name="notes" handleChange={handleChange}
                             value={form.notes || ""} />
-                        <FormBtn onClick={handleSubmit}>Save New Pet</FormBtn>
+                        <FormBtn onClick={handlePetSubmit}>Save New Pet</FormBtn>
                     </Form>
                 </Modal>
                 : null

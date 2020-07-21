@@ -7,7 +7,7 @@ router
   .route("/")
   .get((req, res) => controller.findAll(req, res, db.Client))
   .post((req, res) => controller.create(req, res, db.Client));
-  // .post((req, res) => console.log(req.body));
+  
 
 
 
