@@ -8,5 +8,9 @@ router
   .get((req, res) => controller.findAll(req, res, db.Pet))
   .post((req, res) => controller.create(req, res, db.Pet));
 
+router
+.route("/createday/:petId")
+.patch((req, res) => controller.createNewDay(req, res, db.Pet))  
+
 
   module.exports = router;

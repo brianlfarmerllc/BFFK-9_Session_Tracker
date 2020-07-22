@@ -42,4 +42,14 @@ export default {
     const json = await res.json();
     return json;
   },
+
+  async newDay(petId) {
+    const res = await fetch("/api/pet/createday/" + petId, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" }
+    });
+    const json = await res.json();
+    return json;
+  },
+
 }

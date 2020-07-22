@@ -9,17 +9,21 @@ import Form from "../../components/Form"
 const ClientHome = ({ form, setForm, selectClient, petList }) => {
     const [selectPet, setSelectPet] = useState()
     const [activePet, setActivePet] = useState({})
+    const [trainingSession, setTrainingSession] = useState({})
 
     useEffect(() => {
-        const clientPets = petList.filter(pet => pet.clientId === selectClient._id)
+        setPets();
+    }, [])
 
+    function setPets() {
+        const clientPets = petList.filter(pet => pet.clientId === selectClient._id)
         if (clientPets.length > 0) {
             setSelectPet(clientPets)
             setActivePet(clientPets[0])
         } else {
             return
         }
-    }, [])
+    }
 
 
     function handleChange(e) {
@@ -36,6 +40,24 @@ const ClientHome = ({ form, setForm, selectClient, petList }) => {
                 setForm({})
             })
             .catch(err => console.log(err))
+    }
+
+    function startNewDay(e) {
+        e.preventDefault()
+        API.newDay(activePet._id)
+            .then(res => setActivePet(res))
+            .catch(err => console.log(err))
+    }
+
+    function formatDate(date) {
+        const options = {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+        };
+
+        return new Date(date).toLocaleDateString(options);
     }
 
 
@@ -81,22 +103,19 @@ const ClientHome = ({ form, setForm, selectClient, petList }) => {
                                     <h5><span>{activePet.issues}</span></h5>
                                     <h5>Additional Notes:</h5>
                                     <h5><span>{activePet.notes}</span></h5>
-                                    {activePet.training === undefined ?
-                                        <FormBtn>Start Training</FormBtn>
-                                        : null
-                                    }
-
+                                    <FormBtn onClick={startNewDay}>Start New Day</FormBtn>
                                 </Row >
 
 
                                 <Row className="row">
                                     {
                                         activePet.training ?
+                                            null
+                                            :
                                             <>
                                                 <hr />
-                                                <h2></h2>
+                                                <h2>{formatDate(activePet.training.day[0])}</h2>
                                             </>
-                                            : null
                                     }
                                 </Row>
                             </>
