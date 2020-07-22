@@ -43,11 +43,23 @@ export default {
     return json;
   },
 
-  async newDay(petId) {
-    const res = await fetch("/api/pet/createday/" + petId, {
-      method: "PATCH",
+  async newDay(dayData) {
+    const res = await fetch("/api/session/", {
+      method: "POST",
+      body: JSON.stringify(dayData),
       headers: { "Content-Type": "application/json" }
     });
+    const json = await res.json();
+    return json;
+  },
+
+  async getPetSessions() {
+    let res;
+    try {
+      res = await fetch("/api/session/");
+    } catch (err) {
+      console.log(err)
+    }
     const json = await res.json();
     return json;
   },

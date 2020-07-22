@@ -9,11 +9,18 @@ import Form from "../../components/Form"
 const ClientHome = ({ form, setForm, selectClient, petList }) => {
     const [selectPet, setSelectPet] = useState()
     const [activePet, setActivePet] = useState({})
-    const [trainingSession, setTrainingSession] = useState({})
+    const [trainingSession, setTrainingSession] = useState()
 
     useEffect(() => {
         setPets();
+        getSessions();
     }, [])
+
+    function getSessions() {
+        API.getPetSessions()
+            .then(res => setTrainingSession(res))
+            .catch(err => console.log(err))
+    }
 
     function setPets() {
         const clientPets = petList.filter(pet => pet.clientId === selectClient._id)
@@ -24,7 +31,6 @@ const ClientHome = ({ form, setForm, selectClient, petList }) => {
             return
         }
     }
-
 
     function handleChange(e) {
         const { name, value } = e.target
@@ -44,8 +50,8 @@ const ClientHome = ({ form, setForm, selectClient, petList }) => {
 
     function startNewDay(e) {
         e.preventDefault()
-        API.newDay(activePet._id)
-            .then(res => setActivePet(res))
+        API.newDay({ petId: activePet._id, day: new Date().toISOString() })
+            .then(res => setTrainingSession(res))
             .catch(err => console.log(err))
     }
 
@@ -109,19 +115,21 @@ const ClientHome = ({ form, setForm, selectClient, petList }) => {
 
                                 <Row className="row">
                                     {
-                                        activePet.training ?
-                                            null
+                                        trainingSession ?
+
+                                            trainingSession.map(session => (
+                                                <Col key={session._id} className="col-3">
+                                                    <hr />
+                                                    <h2>{formatDate(session.day)}</h2>
+                                                </Col>
+                                            ))
                                             :
-                                            <>
-                                                <hr />
-                                                <h2>{formatDate(activePet.training.day[0])}</h2>
-                                            </>
+                                            null
                                     }
                                 </Row>
                             </>
-
-
-                            : null}
+                            : null
+                        }
                     </MainCol>
                 </MainRow>
             </Container>

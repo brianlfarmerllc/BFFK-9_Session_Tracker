@@ -7,6 +7,13 @@ module.exports = {
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
+  findAllSessions: function (req, res, model) {
+    model
+      .find(req.query)
+      .sort({ day: 1 })
+      .then((dbModel) => res.json(dbModel))
+      .catch((err) => res.status(422).json(err));
+  },
   findOne: function (req, res, model) {
     model
       .findOne({ _id: req.params.id })
