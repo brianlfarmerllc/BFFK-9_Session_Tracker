@@ -1,5 +1,6 @@
 // Defining methods for the userController
 module.exports = {
+  // find and return all from document and sort by newest first
   findAll: function (req, res, model) {
     model
       .find(req.query)
@@ -7,6 +8,7 @@ module.exports = {
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
+  // find all sessions and sort by oldest first
   findAllSessions: function (req, res, model) {
     model
       .find(req.query)
@@ -59,6 +61,12 @@ module.exports = {
   create: function (req, res, model) {
     model
       .create(req.body)
+      .then((dbModel) => res.json(dbModel))
+      .catch((err) => res.status(422).json(err));
+  },
+  createAndReturnAll: function (req, res, model) {
+    model
+      .create(req.body).find(req.query)
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },

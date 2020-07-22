@@ -6,24 +6,24 @@ import Modal from "../../components/Modal"
 import API from "../../API"
 import Form from "../../components/Form"
 
-const ClientHome = ({ form, setForm, selectClient, petList }) => {
+const ClientHome = ({ form, setForm, selectClient, petList, allSessions }) => {
     const [selectPet, setSelectPet] = useState()
     const [activePet, setActivePet] = useState({})
     const [trainingSession, setTrainingSession] = useState()
 
     useEffect(() => {
         setPets();
-        getSessions();
+        // getPetSessions();
     }, [])
-
-    function getSessions() {
-        API.getPetSessions()
-            .then(res => setTrainingSession(res))
-            .catch(err => console.log(err))
-    }
 
     function setPets() {
         const clientPets = petList.filter(pet => pet.clientId === selectClient._id)
+        
+        if (clientPets[0] !== undefined) {
+            const activePetSessions = allSessions.filter(session => session.petId === clientPets[0]._id)
+            setTrainingSession(activePetSessions)
+        }
+
         if (clientPets.length > 0) {
             setSelectPet(clientPets)
             setActivePet(clientPets[0])
@@ -31,6 +31,8 @@ const ClientHome = ({ form, setForm, selectClient, petList }) => {
             return
         }
     }
+
+
 
     function handleChange(e) {
         const { name, value } = e.target
@@ -51,7 +53,7 @@ const ClientHome = ({ form, setForm, selectClient, petList }) => {
     function startNewDay(e) {
         e.preventDefault()
         API.newDay({ petId: activePet._id, day: new Date().toISOString() })
-            .then(res => setTrainingSession(res))
+            .then(res => setTrainingSession([...trainingSession, res]))
             .catch(err => console.log(err))
     }
 
@@ -119,7 +121,6 @@ const ClientHome = ({ form, setForm, selectClient, petList }) => {
 
                                             trainingSession.map(session => (
                                                 <Col key={session._id} className="col-3">
-                                                    <hr />
                                                     <h2>{formatDate(session.day)}</h2>
                                                 </Col>
                                             ))

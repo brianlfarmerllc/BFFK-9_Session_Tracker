@@ -10,15 +10,24 @@ function App() {
   const [form, setForm] = useState({})
   const [selectClient, setSelectClient] = useState({})
   const [petList, setPetList] = useState([])
+  const [allSessions, setAllSessions] = useState([])
 
   useEffect(() => {
     loadPets()
+    getSessions()
   }, [])
 
   function loadPets() {
     API.returnPets()
       .then(res => setPetList(res))
+      .catch(err => console.log(err))
   }
+
+  function getSessions() {
+    API.getPetSessions()
+        .then(res => setAllSessions(res))
+        .catch(err => console.log(err))
+}
 
 
   return (
@@ -37,7 +46,8 @@ function App() {
               selectClient={selectClient[0]}
               form={form}
               setForm={setForm}
-              petList={petList} />
+              petList={petList}
+              allSessions={allSessions} />
           </Route>
         </Switch>
       </main>
