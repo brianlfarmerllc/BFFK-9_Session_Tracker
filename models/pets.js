@@ -8,7 +8,7 @@ petSchema = new Schema(
     program: { type: String, required: true },
     start_date: { type: String, required: true },
     issues: { type: String, required: true },
-    notes: { type: String, required: true },
+    notes: { type: String },
     clientId: { type: Schema.Types.ObjectId, ref: "Client", required: true },
   },
   {

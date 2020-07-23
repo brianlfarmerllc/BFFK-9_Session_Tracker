@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import "./clienthome.css"
 import { Container, MainRow, SideCol, MainCol, Row, Col } from "../../components/Grid";
 import { Input, Text, FormBtn, Select } from "../../components/FormComponents";
+import TrainingCard from "../../components/TrainingCard"
 import Modal from "../../components/Modal"
 import API from "../../API"
 import Form from "../../components/Form"
@@ -13,12 +14,11 @@ const ClientHome = ({ form, setForm, selectClient, petList, allSessions }) => {
 
     useEffect(() => {
         setPets();
-        // getPetSessions();
     }, [])
 
     function setPets() {
         const clientPets = petList.filter(pet => pet.clientId === selectClient._id)
-        
+
         if (clientPets[0] !== undefined) {
             const activePetSessions = allSessions.filter(session => session.petId === clientPets[0]._id)
             setTrainingSession(activePetSessions)
@@ -31,8 +31,6 @@ const ClientHome = ({ form, setForm, selectClient, petList, allSessions }) => {
             return
         }
     }
-
-
 
     function handleChange(e) {
         const { name, value } = e.target
@@ -115,14 +113,18 @@ const ClientHome = ({ form, setForm, selectClient, petList, allSessions }) => {
                                 </Row >
 
 
-                                <Row className="row">
+                                <Row className="row calander">
                                     {
                                         trainingSession ?
 
-                                            trainingSession.map(session => (
-                                                <Col key={session._id} className="col-3">
-                                                    <h2>{formatDate(session.day)}</h2>
+                                            trainingSession.map((session, index) => (
+                                                <Col className="col mt-4" key={session._id}>
+                                                    <TrainingCard
+                                                        date={formatDate(session.day)}
+                                                        day={index + 1}
+                                                    />
                                                 </Col>
+
                                             ))
                                             :
                                             null
@@ -138,31 +140,33 @@ const ClientHome = ({ form, setForm, selectClient, petList, allSessions }) => {
                 <Modal>
                     <Form header={!selectPet ? "Add Pet Info" : "Add Another Pet"}>
                         <Input
-                            htmlFor="name" label="Pets Name" type="text"
+                            htmlFor="name" label="Pets Name *" type="text"
                             name="name" handleChange={handleChange}
                             value={form.name || ""} />
                         <Input
-                            htmlFor="breed" label="Breed" type="text"
+                            htmlFor="breed" label="Breed *" type="text"
                             name="breed" handleChange={handleChange}
                             value={form.breed || ""} />
                         <Select
-                            htmlFor="program" label="Program" type="text"
+                            htmlFor="program" label="Program *" type="text"
                             name="program" handleChange={handleChange}
                             value={form.program || ""} choose={"Program"}
                             options={["Private Lesson", "One Week B&T", "Two Week B&T"]} />
                         <Input
-                            htmlFor="start_date" label="Start Date (MM/DD/YY)" type="text"
+                            htmlFor="start_date" label="Start Date (MM/DD/YY) *" type="text"
                             name="start_date" handleChange={handleChange}
                             value={form.start_date || ""} />
                         <Text
-                            htmlFor="issues" label="Issues" type="text"
+                            htmlFor="issues" label="Issues *" type="text"
                             name="issues" handleChange={handleChange}
                             value={form.issues || ""} />
                         <Text
                             htmlFor="notes" label="Notes" type="text"
                             name="notes" handleChange={handleChange}
                             value={form.notes || ""} />
-                        <FormBtn onClick={handlePetSubmit}>Save New Pet</FormBtn>
+                        <FormBtn 
+                        disabled={!(form.name && form.breed && form.program && form.start_date && form.issues)}
+                        onClick={handlePetSubmit}>Save New Pet</FormBtn>
                     </Form>
                 </Modal>
                 : null

@@ -4,6 +4,7 @@ import API from "./API"
 import Header from "./components/Header"
 import Clients from "./pages/Clients"
 import ClientHome from "./pages/ClientHome"
+import ActivePet from "./pages/ActivePet"
 import './App.css';
 
 function App() {
@@ -48,6 +49,9 @@ function App() {
               setForm={setForm}
               petList={petList}
               allSessions={allSessions} />
+          </Route>
+          <Route exact path="/training">
+            <ActivePet />
           </Route>
         </Switch>
       </main>

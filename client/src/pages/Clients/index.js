@@ -67,32 +67,34 @@ const Clients = ({ form, setForm, setSelectClient }) => {
                         header="New Client Info"
                     >
                         <Input
-                            htmlFor="name" label="Clients Name" type="text"
+                            htmlFor="name" label="Clients Name *" type="text"
                             name="name" handleChange={handleChange}
                             value={form.name || ""} />
                         <Input
-                            htmlFor="phone" label="Phone Number" type="text"
+                            htmlFor="phone" label="Phone Number *" type="text"
                             name="phone" handleChange={handleChange}
                             value={form.phone || ""} />
                         <Input
-                            htmlFor="email" label="Email" type="text"
+                            htmlFor="email" label="Email *" type="text"
                             name="email" handleChange={handleChange}
                             value={form.email || ""} />
                         <Input
-                            htmlFor="address" label="Home Address" type="text"
+                            htmlFor="address" label="Home Address *" type="text"
                             name="address" handleChange={handleChange}
                             value={form.address || ""} />
                         <Input
-                            htmlFor="city" label="City" type="text"
+                            htmlFor="city" label="City *" type="text"
                             name="city" handleChange={handleChange}
                             value={form.city || ""} />
                         <Select
-                            htmlFor="source" label="How did they find me" type="text"
+                            htmlFor="source" label="How did they find me *" type="text"
                             name="source" handleChange={handleChange}
                             value={form.source || ""} choose={"Source"}
-                            options={["Client Referal", "Instagram", "Paws in The City", "Vet Partnership"]} />
+                            options={["Client Referal", "Instagram", "Paws in The City", "Vet Partnership", "Other"]} />
 
-                        <FormBtn onClick={handleSubmit}>Save New Client</FormBtn>
+                        <FormBtn 
+                        disabled={!(form.name && form.phone && form.email && form.address && form.city && form.source)}
+                        onClick={handleSubmit}>Save New Client</FormBtn>
                     </Form>
                 </MainCol>
             </MainRow>
