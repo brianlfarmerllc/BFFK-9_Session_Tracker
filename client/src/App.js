@@ -51,7 +51,7 @@ function App() {
               allSessions={allSessions} />
           </Route>
           <Route exact path="/training">
-            <ActivePet />
+            <ActivePet form={form} setForm={setForm} />
           </Route>
         </Switch>
       </main>
