@@ -30,6 +30,7 @@ const ClientHome = ({ selectClient, petList, setSession, allSessions }) => {
         } else {
             return
         }
+        
     }, [])
 
     function handleChange(e) {
@@ -57,6 +58,13 @@ const ClientHome = ({ selectClient, petList, setSession, allSessions }) => {
                 history.push("/training")
             })
             .catch(err => console.log(err))
+    }
+
+    function findDay(e) {
+        e.preventDefault();
+        const cardId = (e.target.closest('.card').id)
+        setSession(cardId)
+        history.push("/training")
     }
 
     function formatDate(date) {
@@ -125,6 +133,7 @@ const ClientHome = ({ selectClient, petList, setSession, allSessions }) => {
                                                         date={formatDate(session.day)}
                                                         day={index + 1}
                                                         id={session._id}
+                                                        findDay={findDay}
                                                     />
                                                 </Col>
 

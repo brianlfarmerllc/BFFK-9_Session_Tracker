@@ -25,26 +25,10 @@ module.exports = {
   findOneUpdate: function (req, res, model) {
     model
       .findOneAndUpdate(
-        { _id: req.params.id },
-        {
-          $push: {
-            currentWeight: req.body.currentWeight,
-            day: new Date().toISOString(),
-          },
-        },
-        { new: true }
-      )
-      .then((dbModel) => res.json(dbModel))
-      .catch((err) => res.status(422).json(err));
-  },
-  createNewSession: function (req, res, model) {
-    model
-      .findOneAndUpdate(
         { _id: req.params._id },
         {
           $push: {
             training_block: req.body,
-           
           },
         },
         { new: true }
@@ -52,6 +36,7 @@ module.exports = {
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
+
   findByUserId: function (req, res, model) {
     model
       .find({ userId: req.user._id })

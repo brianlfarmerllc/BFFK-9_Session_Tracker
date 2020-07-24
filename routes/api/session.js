@@ -12,7 +12,7 @@ router
 
   router
   .route("/timeblock/:_id")
-  .patch((req, res) => controller.createNewSession(req, res, db.Session))
+  .patch((req, res) => controller.findOneUpdate(req, res, db.Session))
   
 
 

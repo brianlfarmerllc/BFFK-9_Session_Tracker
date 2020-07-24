@@ -31,7 +31,6 @@ function App() {
         .catch(err => console.log(err))
 }
 
-
   return (
     <Router>
       <main>
@@ -52,6 +51,7 @@ function App() {
           </Route>
           <Route exact path="/training">
             <ActivePet
+            allSessions={allSessions}
             session={session} />
           </Route>
         </Switch>

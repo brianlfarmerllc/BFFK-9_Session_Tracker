@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "./active_pet.css"
 import API from "../../API"
 import { Container, MainRow, MainCol } from '../../components/Grid';
@@ -7,8 +7,14 @@ import TimePicker from 'react-time-picker';
 
 
 
-const ActivePet = ({ session }) => {
+const ActivePet = ({ session, allSessions }) => {
     const [block, setBlock] = useState({})
+    const [activeSession, setActiveSession] = useState([])
+
+    useEffect(() => {
+        const active = allSessions.filter(allSession => allSession._id === session)
+        setActiveSession(active)
+    }, [])
 
     function startTime(time) {
         setBlock({ ...block, start: time })
@@ -26,7 +32,10 @@ const ActivePet = ({ session }) => {
     function handleSubmit(e) {
         e.preventDefault()
         API.sessionBlock(session, block)
-            .then(res => console.log(res))
+            .then(res => {
+                setActiveSession([res])
+                setBlock({})
+            })
             .catch(err => console.log(err))
     }
 
@@ -41,7 +50,7 @@ const ActivePet = ({ session }) => {
                             <TimePicker
                                 disableClock={true}
                                 clearIcon={null}
-                                value={block.start || "17:30"}
+                                value={block.start || ""}
                                 onChange={startTime}
                             />
                         </div>
@@ -50,7 +59,7 @@ const ActivePet = ({ session }) => {
                             <TimePicker
                                 disableClock={true}
                                 clearIcon={null}
-                                value={block.end || "17:45"}
+                                value={block.end || ""}
                                 onChange={endTime}
                             />
                         </div>
@@ -59,8 +68,8 @@ const ActivePet = ({ session }) => {
                             placeholder="Session Notes"
                             name="session_notes"
                             value={block.session_notes || "This is some text"}
-                            onChange={handleChange
-                            }>
+                            onChange={handleChange}
+                        >
                         </textarea>
                         <button
                             disabled={!(block.start && block.end && block.session_notes)}

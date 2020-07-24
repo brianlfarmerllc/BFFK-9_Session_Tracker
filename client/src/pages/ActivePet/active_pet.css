@@ -1,14 +1,14 @@
   .active-pet-main-col {
       margin-left: 0
   }
-  
+
   .active-pet-main-col .row {
       margin: 3rem;
   }
 
   textarea {
-      color:  rgba(0, 0, 0, 0.6);
-      border:none;
+      color: rgba(0, 0, 0, 0.6);
+      border: none;
       padding: 10px;
       resize: none;
       font-weight: 500;
@@ -51,26 +51,28 @@
   }
 
   .active-pet-main-col h6 {
-    color: rgba(0, 0, 0, 0.6);
+      color: rgba(0, 0, 0, 0.6);
   }
 
   .main-col .react-time-picker {
-    background: rgba(0, 0, 0, 0.1);
-    color: rgba(0, 0, 0, 0.6);
+      background: rgba(0, 0, 0, 0.1);
+      color: rgba(0, 0, 0, 0.6);
   }
 
- @media only screen and (max-width: 991px) {
-     .time, textarea, .saveBtn {
-         max-width: none;
-         min-width: 50%;
-     }
+  .main-col .react-time-picker_wrapper {
+      border: none;
+  }
 
-     textarea, .saveBtn {
-         max-width: none;
-         min-width: 100%;
-     }
-
-     .time {
-         margin-bottom: 1em;
-     }
- }
+  @media only screen and (max-width: 991px) {
+      .time, textarea, .saveBtn {
+          max-width: none;
+          min-width: 50%;
+      }
+      textarea, .saveBtn {
+          max-width: none;
+          min-width: 100%;
+      }
+      .time {
+          margin-bottom: 1em;
+      }
+  }
