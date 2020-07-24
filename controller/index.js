@@ -37,14 +37,14 @@ module.exports = {
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
-  createNewDay: function (req, res, model) {
-    console.log(req.params.petId)
+  createNewSession: function (req, res, model) {
     model
       .findOneAndUpdate(
-        { _id: req.params.petId },
+        { _id: req.params._id },
         {
           $push: {
-            "training.day": new Date().toISOString(),
+            training_block: req.body,
+           
           },
         },
         { new: true }
@@ -64,12 +64,6 @@ module.exports = {
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
-  createAndReturnAll: function (req, res, model) {
-    model
-      .create(req.body).find(req.query)
-      .then((dbModel) => res.json(dbModel))
-      .catch((err) => res.status(422).json(err));
-  },
   remove: function (req, res, model) {
     model
       .findById({ _id: req.params.id })
@@ -77,4 +71,25 @@ module.exports = {
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
+  // createNewDay: function (req, res, model) {
+  //   console.log(req.params.petId)
+  //   model
+  //     .findOneAndUpdate(
+  //       { _id: req.params.petId },
+  //       {
+  //         $push: {
+  //           "training.day": new Date().toISOString(),
+  //         },
+  //       },
+  //       { new: true }
+  //     )
+  //     .then((dbModel) => res.json(dbModel))
+  //     .catch((err) => res.status(422).json(err));
+  // },
+  // createAndReturnAll: function (req, res, model) {
+  //   model
+  //     .create(req.body).find(req.query)
+  //     .then((dbModel) => res.json(dbModel))
+  //     .catch((err) => res.status(422).json(err));
+  // },
 };

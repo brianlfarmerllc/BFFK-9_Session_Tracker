@@ -43,6 +43,8 @@ export default {
     return json;
   },
 
+  // session information
+
   async newDay(dayData) {
     const res = await fetch("/api/session/", {
       method: "POST",
@@ -60,6 +62,16 @@ export default {
     } catch (err) {
       console.log(err)
     }
+    const json = await res.json();
+    return json;
+  },
+
+  async sessionBlock(sessionId, sessionInfo) {
+    const res = await fetch("/api/session/timeblock/" + sessionId, {
+      method: "PATCH",
+      body: JSON.stringify(sessionInfo),
+      headers: { "Content-Type": "application/json" }
+    });
     const json = await res.json();
     return json;
   },

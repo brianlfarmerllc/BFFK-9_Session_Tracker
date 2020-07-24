@@ -12,6 +12,7 @@ function App() {
   const [selectClient, setSelectClient] = useState({})
   const [petList, setPetList] = useState([])
   const [allSessions, setAllSessions] = useState([])
+  const [session, setSession] = useState()
 
   useEffect(() => {
     loadPets()
@@ -45,13 +46,13 @@ function App() {
           <Route exact path="/clients/home">
             <ClientHome
               selectClient={selectClient[0]}
-              form={form}
-              setForm={setForm}
               petList={petList}
+              setSession={setSession}
               allSessions={allSessions} />
           </Route>
           <Route exact path="/training">
-            <ActivePet form={form} setForm={setForm} />
+            <ActivePet
+            session={session} />
           </Route>
         </Switch>
       </main>

@@ -8,7 +8,11 @@ router
   .get((req, res) => controller.findAllSessions(req, res, db.Session))
   .post((req, res) => controller.create(req, res, db.Session));
 
+  
+
   router
+  .route("/timeblock/:_id")
+  .patch((req, res) => controller.createNewSession(req, res, db.Session))
   
 
 

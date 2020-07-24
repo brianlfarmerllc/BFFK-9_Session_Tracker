@@ -1,8 +1,8 @@
-  .main-col {
+  .active-pet-main-col {
       margin-left: 0
   }
   
-  .main-col .row {
+  .active-pet-main-col .row {
       margin: 3rem;
   }
 
@@ -45,12 +45,12 @@
       max-width: 150px;
   }
 
-  .main-col h2 {
+  .active-pet-main-col h2 {
       text-align: center;
       margin-top: 2em;
   }
 
-  .main-col h6 {
+  .active-pet-main-col h6 {
     color: rgba(0, 0, 0, 0.6);
   }
 
