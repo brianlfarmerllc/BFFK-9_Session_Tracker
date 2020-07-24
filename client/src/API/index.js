@@ -76,4 +76,17 @@ export default {
     return json;
   },
 
+  async updateSessionBlock(blockId, sessionId, block) {
+    console.log(blockId)
+    console.log(sessionId)
+    console.log(block)
+    const res = await fetch("/api/session/updateblock/" + sessionId, {
+      method: "PATCH",
+      body: JSON.stringify(blockId),
+      headers: { "Content-Type": "application/json" }
+    });
+    const json = await res.json();
+    return json;
+  },
+
 }
