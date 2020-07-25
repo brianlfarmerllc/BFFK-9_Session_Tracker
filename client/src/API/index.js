@@ -76,10 +76,10 @@ export default {
     return json;
   },
 
-  async updateSessionBlock(blockId, sessionId, block) {
+  async updateSessionBlock(blockId, sessionId, updateBlock) {
     console.log(blockId)
     console.log(sessionId)
-    console.log(block)
+    console.log(updateBlock)
     const res = await fetch("/api/session/updateblock/" + sessionId, {
       method: "PATCH",
       body: JSON.stringify(blockId),
