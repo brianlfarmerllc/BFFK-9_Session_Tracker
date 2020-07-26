@@ -8,13 +8,17 @@ router
   .get((req, res) => controller.findAllSessions(req, res, db.Session))
   .post((req, res) => controller.create(req, res, db.Session));
 
-  
-
-  router
+router
   .route("/timeblock/:_id")
+  .patch((req, res) => controller.findOneAddTraining(req, res, db.Session))
+
+router
+  .route("/updateblock/:session/:block")
+  .patch((req, res) => controller.findOneUpdateDetails(req, res, db.Session))
+
+router
+  .route("/daysnotes/:_id")
   .patch((req, res) => controller.findOneUpdate(req, res, db.Session))
-  
 
 
-
-  module.exports = router;
+module.exports = router;

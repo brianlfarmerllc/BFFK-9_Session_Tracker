@@ -27,9 +27,33 @@ module.exports = {
       .findOneAndUpdate(
         { _id: req.params._id },
         {
+          $set: req.body
+        },
+        { new: true }
+      )
+      .then((dbModel) => res.json(dbModel))
+      .catch((err) => res.status(422).json(err));
+  },
+  findOneAddTraining: function (req, res, model) {
+    model
+      .findOneAndUpdate(
+        { _id: req.params._id },
+        {
           $push: {
             training_block: req.body,
           },
+        },
+        { new: true }
+      )
+      .then((dbModel) => res.json(dbModel))
+      .catch((err) => res.status(422).json(err));
+  },
+  findOneUpdateDetails: function (req, res, model) {
+    model
+      .findOneAndUpdate(
+        { _id: req.params.session, "training_block._id": req.params.block },
+        {
+          $set: req.body,
         },
         { new: true }
       )

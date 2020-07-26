@@ -12,7 +12,7 @@ sessionSchema = new Schema(
             },
            
         ],
-        days_notes: { type: String },
+        days_notes: { type: String, default: "Record Notes on Todays Activities" },
         petId: { type: Schema.Types.ObjectId, ref: "Pet", required: true },
     },
 );

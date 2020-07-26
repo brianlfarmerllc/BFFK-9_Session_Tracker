@@ -77,12 +77,19 @@ export default {
   },
 
   async updateSessionBlock(blockId, sessionId, updateBlock) {
-    console.log(blockId)
-    console.log(sessionId)
-    console.log(updateBlock)
-    const res = await fetch("/api/session/updateblock/" + sessionId, {
+    const res = await fetch("/api/session/updateblock/" + sessionId + "/" + blockId, {
       method: "PATCH",
-      body: JSON.stringify(blockId),
+      body: JSON.stringify(updateBlock),
+      headers: { "Content-Type": "application/json" }
+    });
+    const json = await res.json();
+    return json;
+  },
+
+  async submitNotes(daysNotes, sessionId) {
+    const res = await fetch("/api/session/daysnotes/" + sessionId, {
+      method: "PATCH",
+      body: JSON.stringify(daysNotes),
       headers: { "Content-Type": "application/json" }
     });
     const json = await res.json();

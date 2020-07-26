@@ -12,18 +12,19 @@ const ActivePet = ({ session, allSessions }) => {
     const [block, setBlock] = useState({})
     const [activeSession, setActiveSession] = useState([])
     const [updateBlock, setUpdateBlock] = useState({})
-    const [sessionToUpdate, setSessionToUpdate] = useState([])
-    const [editState, setEditState] = useState(false)
+    const [dailySummary, setDailySummary] = useState({})
 
     useEffect(() => {
         const active = allSessions.filter(allSession => allSession._id === session)
         setActiveSession(active)
     }, [])
 
+    // function to convert militay time to standard time
     function convert(input) {
         return moment(input, 'HH:mm').format('h:mm A');
     }
 
+    // function to format mongo db date
     function formatDate(date) {
         const options = {
             weekday: "long",
@@ -34,7 +35,7 @@ const ActivePet = ({ session, allSessions }) => {
         return new Date(date).toLocaleDateString(options);
     }
 
-    // handles the on change when creating new
+    // handles the on change when creating new 
     function startTime(time) {
         setBlock({ ...block, start: time })
     };
@@ -48,13 +49,18 @@ const ActivePet = ({ session, allSessions }) => {
         setBlock({ ...block, [name]: value })
     };
 
+    function handleDailyNotes(e) {
+        const { name, value } = e.target
+        setDailySummary({ ...dailySummary, [name]: value })
+    };
+
     // handles the on change when updating
     function updateStartTime(time) {
-        setUpdateBlock({ ...updateBlock, start: time })
+        setUpdateBlock({ ...updateBlock, "training_block.$.start": time })
     };
 
     function updateEndTime(time) {
-        setUpdateBlock({ ...updateBlock, end: time })
+        setUpdateBlock({ ...updateBlock, "training_block.$.end": time })
     };
 
     function updateHandleChange(e) {
@@ -62,6 +68,7 @@ const ActivePet = ({ session, allSessions }) => {
         setUpdateBlock({ ...updateBlock, [name]: value })
     };
 
+    // handles submit of new timeblock
     function handleSubmit(e) {
         e.preventDefault()
         API.sessionBlock(session, block)
@@ -71,12 +78,22 @@ const ActivePet = ({ session, allSessions }) => {
             })
             .catch(err => console.log(err))
     };
+    // ------------work here ---------------
 
+    function handleSubmitDailyNotes(e) {
+        e.preventDefault();
+        API.submitNotes(dailySummary, activeSession[0]._id)
+            .then(res => setActiveSession([res]))
+            .catch(err => console.log(err))
+    }
+
+    // ------------work here ---------------
+    // handles update of new timeblock 
     function handleUpdate(e) {
         e.preventDefault()
-        const blockId = e.target.closest('button')
+        const blockId = e.target.closest('button').id
         API.updateSessionBlock(blockId, activeSession[0]._id, updateBlock)
-            .then(res => console.log(res))
+            .then(res => setActiveSession([res]))
             .catch(err => console.log(err))
     };
 
@@ -149,7 +166,7 @@ const ActivePet = ({ session, allSessions }) => {
                                     <textarea
                                         className="col description"
                                         placeholder="Session Notes"
-                                        name="session_notes"
+                                        name="training_block.$.session_notes"
                                         defaultValue={timeBlock.session_notes}
                                         onChange={updateHandleChange}
                                     >
@@ -160,10 +177,33 @@ const ActivePet = ({ session, allSessions }) => {
                                         onClick={handleUpdate}
                                         className="btn saveBtn col"
                                     >
-                                        <i className="fas fa-save"></i>
+                                        <p>Edit</p>
                                     </button>
                                 </div>
                             ))
+                            : null
+                        }
+
+                        {activeSession.length > 0 ?
+                            <div className="row time-block">
+                                <h5 style={{ textAlign: "start" }}>Daily Summary</h5>
+                                <textarea
+                                    className="col description"
+                                    placeholder="Days Notes"
+                                    name="days_notes"
+                                    defaultValue={dailySummary.days_notes || activeSession[0].days_notes}
+                                    onChange={handleDailyNotes}
+                                >
+                                </textarea>
+                                <button
+                                    disabled={!(dailySummary.days_notes)}
+                                    type="submit"
+                                    onClick={handleSubmitDailyNotes}
+                                    className="btn saveBtn col"
+                                >
+                                    <p>Edit</p>
+                                </button>
+                            </div>
                             : null
                         }
                     </MainCol>
