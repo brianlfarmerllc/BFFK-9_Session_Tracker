@@ -22,8 +22,8 @@ h5 {
 .side-col h5 span {
     color: #5383d3;
     margin-left: 2em;
-    position: absolute;
-    left: 100px;
+    /* position: absolute;
+    left: 100px; */
 }
 
 .side-col {

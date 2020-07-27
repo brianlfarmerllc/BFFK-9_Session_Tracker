@@ -3,7 +3,21 @@
   }
 
   .active-pet-main-col .row {
-      margin: 3rem;
+      margin-left: 3rem;
+      margin-right: 3rem;
+  }
+
+  .active-pet-main-col h4 {
+      text-align: start;
+      padding: 0;
+      color: #4f4f50;
+      font-size: 30px;
+  }
+
+  .active-pet-main-col .header-row {
+    padding: 1em 1em 0 1em;
+    margin-bottom: 0;
+    
   }
 
   textarea {
@@ -41,15 +55,37 @@
 
   .time-block {
       text-align: center;
-      box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.05), 0px 0px 3px 7px rgba(0, 0, 0, 0.05);
       padding: 1em;
-      border-radius: 4px;
+      margin-bottom: 0;
+  }
+
+  .time-block h4 {
+      text-align: start;
+      padding: 0;
+      color: #4f4f50;
+  }
+
+  .time-block h5 {
+      text-align: start;
+      padding: 0;
+      margin-top: 1em;
+      margin-bottom: 0;
   }
 
   .time {
       background-color: #ffffff;
       min-width: 125px;
       max-width: 150px;
+      background-color: #5383d3;
+      color: white;
+      border-radius: 4px;
+      margin-right: 1em;
+      align-items: center;
+  }
+
+  .time-diff h6 {
+      color: white;
+      margin-bottom: 10px;
   }
 
   .saveBtn {
@@ -78,20 +114,20 @@
   }
 
   .active-pet-main-col h6 {
-      color: rgba(0, 0, 0, 0.6);
+      color: white;
   }
 
   .main-col .react-time-picker {
-      background: rgba(0, 0, 0, 0.1);
+      background: white;
       color: rgba(0, 0, 0, 0.6);
+      border-radius: 4px;
   }
 
-  .main-col .react-time-picker_wrapper {
-      border: none;
+  .main-col .react-time-picker__wrapper {
+      border-width: 0;
   }
 
-  .modal-row .react-time-picker {
-      background: rgba(0, 0, 0, 0.1);
+  .main-col select {
       color: rgba(0, 0, 0, 0.6);
   }
 

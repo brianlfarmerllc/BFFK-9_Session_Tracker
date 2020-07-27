@@ -13,11 +13,27 @@ const ActivePet = ({ session, allSessions }) => {
     const [activeSession, setActiveSession] = useState([])
     const [updateBlock, setUpdateBlock] = useState({})
     const [dailySummary, setDailySummary] = useState({})
+    const [timeTotals, setTimeTotals] = useState([])
+
+    let timeArray = []
 
     useEffect(() => {
-        const active = allSessions.filter(allSession => allSession._id === session)
-        setActiveSession(active)
+        const active = allSessions.filter(allSession => allSession._id === session);
+        setActiveSession(active);
     }, [])
+
+    // function to get diff between start and stop times
+    function timeDiff(startTime, endTime) {
+        // parse time using 24-hour clock and use UTC to prevent DST issues
+        var start = moment.utc(startTime, "HH:mm");
+        var end = moment.utc(endTime, "HH:mm");
+
+        // calculate the duration
+        var d = moment.duration(end.diff(start));
+
+        // format a string result
+        return moment.utc(+d).format('H:mm');
+    }
 
     // function to convert militay time to standard time
     function convert(input) {
@@ -34,6 +50,15 @@ const ActivePet = ({ session, allSessions }) => {
         };
         return new Date(date).toLocaleDateString(options);
     }
+
+
+    if (activeSession.length > 0) {
+        for (let i = 0; i < activeSession[0].training_block.length; i++) {
+            const element = timeDiff(activeSession[0].training_block[i].start, activeSession[0].training_block[i].end);
+            timeArray.push(element)
+            console.log(timeArray)
+        }
+    };
 
     // handles the on change when creating new 
     function startTime(time) {
@@ -68,7 +93,7 @@ const ActivePet = ({ session, allSessions }) => {
         setUpdateBlock({ ...updateBlock, [name]: value })
     };
 
-    // handles submit of new timeblock
+    // handles submits
     function handleSubmit(e) {
         e.preventDefault()
         API.sessionBlock(session, block)
@@ -78,7 +103,6 @@ const ActivePet = ({ session, allSessions }) => {
             })
             .catch(err => console.log(err))
     };
-    // ------------work here ---------------
 
     function handleSubmitDailyNotes(e) {
         e.preventDefault();
@@ -87,7 +111,6 @@ const ActivePet = ({ session, allSessions }) => {
             .catch(err => console.log(err))
     }
 
-    // ------------work here ---------------
     // handles update of new timeblock 
     function handleUpdate(e) {
         e.preventDefault()
@@ -102,7 +125,9 @@ const ActivePet = ({ session, allSessions }) => {
             <Container>
                 <MainRow>
                     <MainCol className="col main-col active-pet-main-col">
-                        <h2>Enter New Training Session Details</h2>
+                        <div className="row header-row">
+                            <h4>Enter New Training Session Details</h4>
+                        </div>
                         <div className="row time-block">
                             <div className="col time start_time">
                                 <h6 style={{ marginTop: "5px" }}>Start Time</h6>
@@ -140,13 +165,17 @@ const ActivePet = ({ session, allSessions }) => {
                             </button>
                         </div>
 
+                        {activeSession.length > 0 ?
+                            <div className="row header-row" style={{ marginTop: "2rem" }}>
+                                <h4>{formatDate(activeSession[0].day)} Training Details</h4>
+                            </div>
+                            : null}
 
-                        {activeSession.length > 0 ? <h2>{formatDate(activeSession[0].day)} Training Details</h2> : null}
 
                         {activeSession.length > 0 ?
 
                             activeSession[0].training_block.map((timeBlock, index) => (
-                                <div key={index} className="row time-block">
+                                <div className="row time-block" key={index}>
                                     <div className="col time">
                                         <h6 style={{ marginTop: "5px" }}>{convert(timeBlock.start)}</h6>
                                         <TimePicker
@@ -179,31 +208,39 @@ const ActivePet = ({ session, allSessions }) => {
                                     >
                                         <p>Edit</p>
                                     </button>
+                                    <h5 style={{ textAlign: "start", padding: "0", marginTop: "1em", marginBottom: "0" }}>
+                                        Session Time: {timeDiff(timeBlock.start, timeBlock.end)}
+                                    </h5>
                                 </div>
                             ))
                             : null
                         }
 
                         {activeSession.length > 0 ?
-                            <div className="row time-block">
-                                <h5 style={{ textAlign: "start" }}>Daily Summary</h5>
-                                <textarea
-                                    className="col description"
-                                    placeholder="Days Notes"
-                                    name="days_notes"
-                                    defaultValue={dailySummary.days_notes || activeSession[0].days_notes}
-                                    onChange={handleDailyNotes}
-                                >
-                                </textarea>
-                                <button
-                                    disabled={!(dailySummary.days_notes)}
-                                    type="submit"
-                                    onClick={handleSubmitDailyNotes}
-                                    className="btn saveBtn col"
-                                >
-                                    <p>Edit</p>
-                                </button>
-                            </div>
+                            <>
+                                <div className="row header-row" style={{ marginTop: "2rem" }}>
+                                    <h4 style={{ textAlign: "start", padding: "0", }}>Daily Summary</h4>
+                                </div>
+                                <div className="row time-block">
+                                    <textarea
+                                        className="col description"
+                                        placeholder="Days Notes"
+                                        name="days_notes"
+                                        defaultValue={dailySummary.days_notes || activeSession[0].days_notes}
+                                        onChange={handleDailyNotes}
+                                    >
+                                    </textarea>
+                                    <button
+                                        disabled={!(dailySummary.days_notes)}
+                                        type="submit"
+                                        onClick={handleSubmitDailyNotes}
+                                        className="btn saveBtn col"
+                                    >
+                                        <p>Edit</p>
+                                    </button>
+                                    {timeArray.length > 0}
+                                </div>
+                            </>
                             : null
                         }
                     </MainCol>

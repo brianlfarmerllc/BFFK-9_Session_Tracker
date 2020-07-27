@@ -134,6 +134,7 @@ const ClientHome = ({ selectClient, petList, setSession, allSessions }) => {
                                                         day={index + 1}
                                                         id={session._id}
                                                         findDay={findDay}
+                                                        days_notes={session.days_notes}
                                                     />
                                                 </Col>
 
