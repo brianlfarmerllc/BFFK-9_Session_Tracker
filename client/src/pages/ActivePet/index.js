@@ -13,9 +13,10 @@ const ActivePet = ({ session, allSessions }) => {
     const [activeSession, setActiveSession] = useState([])
     const [updateBlock, setUpdateBlock] = useState({})
     const [dailySummary, setDailySummary] = useState({})
-    const [timeTotals, setTimeTotals] = useState([])
+    const [totalSeconds, setTotalSeconds] = useState(0)
 
     let timeArray = []
+    let daysTime;
 
     useEffect(() => {
         const active = allSessions.filter(allSession => allSession._id === session);
@@ -52,13 +53,20 @@ const ActivePet = ({ session, allSessions }) => {
     }
 
 
-    if (activeSession.length > 0) {
-        for (let i = 0; i < activeSession[0].training_block.length; i++) {
-            const element = timeDiff(activeSession[0].training_block[i].start, activeSession[0].training_block[i].end);
-            timeArray.push(element)
-            console.log(timeArray)
-        }
-    };
+    function totalTime() {
+        if (activeSession.length > 0) {
+            for (let i = 0; i < activeSession[0].training_block.length; i++) {
+                const time = timeDiff(activeSession[0].training_block[i].start, activeSession[0].training_block[i].end);
+                const split = time.split(':')
+                const seconds = (split[0]) * 60 * 60 + (split[1]) * 60
+                timeArray.push(seconds)
+                const totalSeconds = timeArray.reduce((a, b) => a + b, 0)
+                daysTime = new Date(totalSeconds * 1000).toISOString().substr(11, 5)
+            }
+        };
+    }
+
+    totalTime()
 
     // handles the on change when creating new 
     function startTime(time) {
@@ -219,7 +227,7 @@ const ActivePet = ({ session, allSessions }) => {
                         {activeSession.length > 0 ?
                             <>
                                 <div className="row header-row" style={{ marginTop: "2rem" }}>
-                                    <h4 style={{ textAlign: "start", padding: "0", }}>Daily Summary</h4>
+                                    <h4 style={{ textAlign: "start", padding: "0", }}>Daily Summary {daysTime}</h4>
                                 </div>
                                 <div className="row time-block">
                                     <textarea
