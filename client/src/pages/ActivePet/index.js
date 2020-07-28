@@ -13,7 +13,6 @@ const ActivePet = ({ session, allSessions }) => {
     const [activeSession, setActiveSession] = useState([])
     const [updateBlock, setUpdateBlock] = useState({})
     const [dailySummary, setDailySummary] = useState({})
-    const [totalSeconds, setTotalSeconds] = useState(0)
 
     let timeArray = []
     let daysTime;
@@ -52,7 +51,7 @@ const ActivePet = ({ session, allSessions }) => {
         return new Date(date).toLocaleDateString(options);
     }
 
-
+    // function to supp up the total session time for the day
     function totalTime() {
         if (activeSession.length > 0) {
             for (let i = 0; i < activeSession[0].training_block.length; i++) {
@@ -64,7 +63,7 @@ const ActivePet = ({ session, allSessions }) => {
                 daysTime = new Date(totalSeconds * 1000).toISOString().substr(11, 5)
             }
         };
-    }
+    };
 
     totalTime()
 
@@ -184,6 +183,9 @@ const ActivePet = ({ session, allSessions }) => {
 
                             activeSession[0].training_block.map((timeBlock, index) => (
                                 <div className="row time-block" key={index}>
+                                        <h5 >
+                                            Session {index + 1} - Time: {timeDiff(timeBlock.start, timeBlock.end)}
+                                        </h5>
                                     <div className="col time">
                                         <h6 style={{ marginTop: "5px" }}>{convert(timeBlock.start)}</h6>
                                         <TimePicker
@@ -216,9 +218,6 @@ const ActivePet = ({ session, allSessions }) => {
                                     >
                                         <p>Edit</p>
                                     </button>
-                                    <h5 style={{ textAlign: "start", padding: "0", marginTop: "1em", marginBottom: "0" }}>
-                                        Session Time: {timeDiff(timeBlock.start, timeBlock.end)}
-                                    </h5>
                                 </div>
                             ))
                             : null
@@ -227,7 +226,8 @@ const ActivePet = ({ session, allSessions }) => {
                         {activeSession.length > 0 ?
                             <>
                                 <div className="row header-row" style={{ marginTop: "2rem" }}>
-                                    <h4 style={{ textAlign: "start", padding: "0", }}>Daily Summary {daysTime}</h4>
+                                    <h4 >Daily Summary </h4>
+                                    <h4>Total Session Time {daysTime}</h4>
                                 </div>
                                 <div className="row time-block">
                                     <textarea

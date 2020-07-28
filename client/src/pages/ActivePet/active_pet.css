@@ -15,9 +15,8 @@
   }
 
   .active-pet-main-col .header-row {
-    padding: 1em 1em 0 1em;
-    margin-bottom: 0;
-    
+      padding: 1em 1em 0 1em;
+      margin-bottom: 0;
   }
 
   textarea {
@@ -68,8 +67,8 @@
   .time-block h5 {
       text-align: start;
       padding: 0;
-      margin-top: 1em;
-      margin-bottom: 0;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
   }
 
   .time {
@@ -131,16 +130,31 @@
       color: rgba(0, 0, 0, 0.6);
   }
 
-  @media only screen and (max-width: 991px) {
-      .time, textarea, .saveBtn {
-          max-width: none;
-          min-width: 50%;
+  @media only screen and (max-width: 1176px) {
+      .active-pet-main-col h4 {
+          text-align: center;
       }
-      textarea, .saveBtn {
-          max-width: none;
-          min-width: 100%;
+      .active-pet-main-col .time-block {
+          justify-content: center;
       }
-      .time {
-          margin-bottom: 1em;
+      .active-pet-main-col .time {
+          max-width: none;
+          min-width: 40%;
+          margin: 1em 1em 1em 1em;
+          padding: 0 0 1em 0;
+      }
+      .time-block h5 {
+          text-align: center;
+      }
+      .active-pet-main-col textarea {
+          max-width: 100%;
+          min-width: 90%;
+          margin: 0em 1em 0em 1em;
+      }
+      .active-pet-main-col .saveBtn {
+          max-width: 40%;
+          min-width: 40%;
+          margin: 1em 0 1em 0;
+          padding: 1.5rem 0 1.5rem 0;
       }
   }
