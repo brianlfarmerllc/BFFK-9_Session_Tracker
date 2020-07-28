@@ -45,7 +45,7 @@ h2 {
     color: white;
     display: inline-block;
     border-radius: 50%;
-    margin-right: 20px;
+    margin-right: 12px;
     font-size: 12px;
     font-weight: 600;
     transform: translateY(-2px);
@@ -54,4 +54,15 @@ h2 {
 .side-col ul li:hover span {
     background-color: white;
     color: #5383d3;
+}
+
+@media (max-width:1625px) {
+    .side-col ul li {
+        font-size: 16px;
+    }
+    .side-col ul li span{
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+    }
 }

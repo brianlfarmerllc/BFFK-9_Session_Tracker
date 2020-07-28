@@ -46,7 +46,7 @@ const Clients = ({ form, setForm, setSelectClient }) => {
     return (
         <Container>
             <MainRow>
-                <SideCol>
+                <SideCol className="clientList">
                     <h2>Select Client</h2>
                     <ul>
                         {
@@ -62,7 +62,8 @@ const Clients = ({ form, setForm, setSelectClient }) => {
                         }
                     </ul>
                 </SideCol>
-                <MainCol className="col col-xl-5 main-col">
+                <MainCol className="col col-6 main-col clientForm">
+                    
                     <Form
                         header="New Client Info"
                     >

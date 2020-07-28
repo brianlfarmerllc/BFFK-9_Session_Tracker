@@ -24,14 +24,9 @@ const ActivePet = ({ session, allSessions }) => {
 
     // function to get diff between start and stop times
     function timeDiff(startTime, endTime) {
-        // parse time using 24-hour clock and use UTC to prevent DST issues
         var start = moment.utc(startTime, "HH:mm");
         var end = moment.utc(endTime, "HH:mm");
-
-        // calculate the duration
         var d = moment.duration(end.diff(start));
-
-        // format a string result
         return moment.utc(+d).format('H:mm');
     }
 
@@ -51,7 +46,7 @@ const ActivePet = ({ session, allSessions }) => {
         return new Date(date).toLocaleDateString(options);
     }
 
-    // function to supp up the total session time for the day
+    // function to sum the total session time for the day
     function totalTime() {
         if (activeSession.length > 0) {
             for (let i = 0; i < activeSession[0].training_block.length; i++) {
@@ -183,9 +178,9 @@ const ActivePet = ({ session, allSessions }) => {
 
                             activeSession[0].training_block.map((timeBlock, index) => (
                                 <div className="row time-block" key={index}>
-                                        <h5 >
-                                            Session {index + 1} - Time: {timeDiff(timeBlock.start, timeBlock.end)}
-                                        </h5>
+                                    <h5 >
+                                        Session {index + 1} - Time: {timeDiff(timeBlock.start, timeBlock.end)}
+                                    </h5>
                                     <div className="col time">
                                         <h6 style={{ marginTop: "5px" }}>{convert(timeBlock.start)}</h6>
                                         <TimePicker
@@ -227,7 +222,7 @@ const ActivePet = ({ session, allSessions }) => {
                             <>
                                 <div className="row header-row" style={{ marginTop: "2rem" }}>
                                     <h4 >Daily Summary </h4>
-                                    <h4>Total Session Time {daysTime}</h4>
+                                    <h4>Daily Training Time {daysTime}</h4>
                                 </div>
                                 <div className="row time-block">
                                     <textarea

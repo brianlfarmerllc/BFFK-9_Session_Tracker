@@ -80,25 +80,4 @@ module.exports = {
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
-  // createNewDay: function (req, res, model) {
-  //   console.log(req.params.petId)
-  //   model
-  //     .findOneAndUpdate(
-  //       { _id: req.params.petId },
-  //       {
-  //         $push: {
-  //           "training.day": new Date().toISOString(),
-  //         },
-  //       },
-  //       { new: true }
-  //     )
-  //     .then((dbModel) => res.json(dbModel))
-  //     .catch((err) => res.status(422).json(err));
-  // },
-  // createAndReturnAll: function (req, res, model) {
-  //   model
-  //     .create(req.body).find(req.query)
-  //     .then((dbModel) => res.json(dbModel))
-  //     .catch((err) => res.status(422).json(err));
-  // },
 };

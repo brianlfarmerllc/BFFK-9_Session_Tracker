@@ -16,30 +16,47 @@
 h5 {
     color: #4f4f50;
     padding: 5px;
+    margin-bottom: 0;
     height: auto;
 }
 
 .side-col h5 span {
     color: #5383d3;
-    margin-left: 2em;
-    /* position: absolute;
-    left: 100px; */
-}
-
-.side-col {
-    position: relative;
-    min-width: 500px;
-}
-
-.main-col {
-    min-width: 500px;
 }
 
 .main-col h5 span {
     color: #5383d3;
-    
 }
 
 .main-col button {
     max-width: 200px;
+}
+
+.popup .modal-row .col {
+    box-shadow: none;
+    margin: 0;
+    padding: 0 12px 0 12px;
+    min-height: none;
+    height: auto;
+}
+
+.popup .modal-row .form-group label{
+    
+}
+
+@media (max-width:1625px) {
+    h5 {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px){
+    .popup label{
+    font-size: 12px;
+    }
+}
+@media (max-width: 360px){
+    .popup label{
+    font-size: 10px;
+    }
 }

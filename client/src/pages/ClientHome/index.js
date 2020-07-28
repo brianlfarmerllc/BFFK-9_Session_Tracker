@@ -30,7 +30,7 @@ const ClientHome = ({ selectClient, petList, setSession, allSessions }) => {
         } else {
             return
         }
-        
+
     }, [])
 
     function handleChange(e) {
@@ -86,10 +86,14 @@ const ClientHome = ({ selectClient, petList, setSession, allSessions }) => {
                         <hr />
                         {selectClient ?
                             <>
-                                <h5>Name:<span>{selectClient.name}</span></h5>
-                                <h5>Phone:<span>{selectClient.phone}</span></h5>
-                                <h5>Email:<span>{selectClient.email}</span></h5>
-                                <h5>Address:<span>{selectClient.address} - {selectClient.city}</span></h5>
+                                <h5>Name: </h5>
+                                <h5><span>{selectClient.name}</span></h5>
+                                <h5>Phone:</h5>
+                                <h5><span>{selectClient.phone}</span></h5>
+                                <h5>Email:</h5>
+                                <h5><span>{selectClient.email}</span></h5>
+                                <h5>Address:</h5>
+                                <h5><span>{selectClient.address} - {selectClient.city}</span></h5>
                             </>
                             : null
                         }
@@ -99,10 +103,14 @@ const ClientHome = ({ selectClient, petList, setSession, allSessions }) => {
                             <>
                                 {selectPet.map((pet, index) => (
                                     <div key={index}>
-                                        <h5>Name:<span>{pet.name}</span></h5>
-                                        <h5>Breed:<span>{pet.breed}</span></h5>
-                                        <h5>Program:<span>{pet.program}</span></h5>
-                                        <h5>Starting:<span>{pet.start_date}</span></h5>
+                                        <h5>Name:</h5>
+                                        <h5><span>{pet.name}</span></h5>
+                                        <h5>Breed:</h5>
+                                        <h5><span>{pet.breed}</span></h5>
+                                        <h5>Program:</h5>
+                                        <h5><span>{pet.program}</span></h5>
+                                        <h5>Starting:</h5>
+                                        <h5><span>{pet.start_date}</span></h5>
                                     </div>
                                 ))}
                             </>
@@ -152,14 +160,20 @@ const ClientHome = ({ selectClient, petList, setSession, allSessions }) => {
             {!selectPet && selectClient ?
                 <Modal>
                     <Form header={!selectPet ? "Add Pet Info" : "Add Another Pet"}>
-                        <Input
-                            htmlFor="name" label="Pets Name *" type="text"
-                            name="name" handleChange={handleChange}
-                            value={newPet.name || ""} />
-                        <Input
-                            htmlFor="breed" label="Breed *" type="text"
-                            name="breed" handleChange={handleChange}
-                            value={newPet.breed || ""} />
+                        <div className="row modal-row">
+                            <div className="col">
+                                <Input
+                                    htmlFor="name" label="Pets Name *" type="text"
+                                    name="name" handleChange={handleChange}
+                                    value={newPet.name || ""} />
+                            </div>
+                            <div className="col">
+                                <Input
+                                    htmlFor="breed" label="Breed *" type="text"
+                                    name="breed" handleChange={handleChange}
+                                    value={newPet.breed || ""} />
+                            </div>
+                        </div>
                         <Select
                             htmlFor="program" label="Program *" type="text"
                             name="program" handleChange={handleChange}

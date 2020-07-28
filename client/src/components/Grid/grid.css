@@ -16,6 +16,7 @@
     background-color: #fff;
     min-height: 75vh;
     border-radius: 4px;
+    min-width: 300px;
 }
 
 .main-col {
@@ -25,9 +26,10 @@
     background-color: #fff;
     min-height: 75vh;
     border-radius: 4px;
+    min-width: 300px;
 }
 
-@media (max-width: 1025px) {
+@media (max-width: 1138px) {
     .side-col {
         width: 100%
     }
