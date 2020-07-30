@@ -1,12 +1,18 @@
 .header-basic-light {
-	padding: 20px 30px;
+	padding: 5px 30px;
 	box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.15);
 	height: auto;
 	background-color: #fff;
 }
 
 .header-basic-light .header-limiter {
-	margin: 0 auto;
+	margin: auto auto;
+	align-content: center;
+}
+
+.header-basic-light .header-col {
+	margin-top: auto;
+	margin-bottom: auto;
 }
 
 /* Logo */
@@ -40,7 +46,16 @@
 	line-height: 75px;
 	float: right;
 	padding-right: 2em;
+	margin-top: auto;
+	margin-bottom: auto;
 }
+
+.header-basic-light .header-limiter nav ul {
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+
 
 .header-basic-light .header-limiter nav li, .header-basic-light .header-limiter nav a {
 	display: inline-block;

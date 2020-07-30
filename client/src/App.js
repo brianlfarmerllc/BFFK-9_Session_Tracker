@@ -34,9 +34,9 @@ function App() {
   return (
     <Router>
       <main>
-        <Header selectClient={selectClient}/>
+        <Header selectClient={selectClient} getSessions={getSessions}/>
         <Switch>
-          <Route exact path="/clients">
+          <Route exact path="/">
             <Clients
               form={form}
               setForm={setForm}
@@ -51,6 +51,7 @@ function App() {
           </Route>
           <Route exact path="/training">
             <ActivePet
+            getSessions={getSessions}
             allSessions={allSessions}
             session={session} />
           </Route>

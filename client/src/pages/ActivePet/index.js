@@ -8,7 +8,7 @@ import TimePicker from 'react-time-picker';
 
 
 
-const ActivePet = ({ session, allSessions }) => {
+const ActivePet = ({ session, allSessions, getSessions }) => {
     const [block, setBlock] = useState({})
     const [activeSession, setActiveSession] = useState([])
     const [updateBlock, setUpdateBlock] = useState({})
@@ -18,6 +18,7 @@ const ActivePet = ({ session, allSessions }) => {
     let daysTime;
 
     useEffect(() => {
+        getSessions()
         const active = allSessions.filter(allSession => allSession._id === session);
         setActiveSession(active);
     }, [])
