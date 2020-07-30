@@ -1,8 +1,9 @@
 import React from 'react';
+import { BrowserRouter as Link } from "react-router-dom";
 import logo from "../../bffk91024.png"
 import "./header.css"
 
-const Header = () => {
+const Header = ({ selectClient }) => {
     return (
         <header className="container-fluid header-basic-light">
 
@@ -21,9 +22,17 @@ const Header = () => {
                 <div className="col-12 col-lg-6">
 
                     <nav>
-                        <a href="/">Home</a>
-                        <a href="/clients">Clients</a>
-                        <a href="/current">Current</a>
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/clients">Clients</a></li>
+                            {
+                                selectClient.length > 0 ?
+                                    <li><a href="/clients/home">Current</a></li>
+                                    :
+                                    <li><a href="/clients">Current</a></li>
+                            }
+
+                        </ul>
                     </nav>
 
                 </div>

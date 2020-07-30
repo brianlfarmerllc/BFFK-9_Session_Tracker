@@ -23,5 +23,5 @@
     padding: 2em;
     max-width: 800px;
     overflow-y: auto;
-    max-height: calc(100vh - 210px);
+    max-height: calc(100vh - 100px);
 }

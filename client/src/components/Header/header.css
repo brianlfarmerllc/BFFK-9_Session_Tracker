@@ -42,7 +42,7 @@
 	padding-right: 2em;
 }
 
-.header-basic-light .header-limiter nav a {
+.header-basic-light .header-limiter nav li, .header-basic-light .header-limiter nav a {
 	display: inline-block;
 	padding: 0 10px;
 	text-decoration: none;

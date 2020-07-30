@@ -134,6 +134,7 @@ const ActivePet = ({ session, allSessions }) => {
                             <div className="col time start_time">
                                 <h6 style={{ marginTop: "5px" }}>Start Time</h6>
                                 <TimePicker
+                                    autoFocus={true}
                                     disableClock={true}
                                     clearIcon={null}
                                     value={block.start || ""}
@@ -222,7 +223,6 @@ const ActivePet = ({ session, allSessions }) => {
                             <>
                                 <div className="row header-row" style={{ marginTop: "2rem" }}>
                                     <h4 >Daily Summary </h4>
-                                    <h4>Daily Training Time {daysTime}</h4>
                                 </div>
                                 <div className="row time-block">
                                     <textarea
@@ -241,7 +241,9 @@ const ActivePet = ({ session, allSessions }) => {
                                     >
                                         <p>Edit</p>
                                     </button>
-                                    {timeArray.length > 0}
+                                </div>
+                                <div className="row header-row" style={{ paddingTop: "0", marginBottom: "1em" }}>
+                                    <h4>Daily Training Time {daysTime}</h4>
                                 </div>
                             </>
                             : null

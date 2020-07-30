@@ -34,7 +34,7 @@ function App() {
   return (
     <Router>
       <main>
-        <Header />
+        <Header selectClient={selectClient}/>
         <Switch>
           <Route exact path="/clients">
             <Clients
