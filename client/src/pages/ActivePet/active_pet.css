@@ -130,6 +130,59 @@
       color: rgba(0, 0, 0, 0.6);
   }
 
+  .popup .active-pet-main-col {
+      max-height: 200px;
+      margin-bottom: auto;
+      margin-top: auto;
+      background-color: rgb(255, 255, 255);
+  }
+
+  .popup .active-pet-main-col .time-block {
+      justify-content: center;
+      margin-top: auto;
+      margin-bottom: auto;
+  }
+
+  .popup .active-pet-main-col .header-row h4{
+      text-align: center;
+  }
+
+  .popup .active-pet-main-col .time {
+      max-width: none;
+      min-width: 40%;
+      margin: 2em 1em 2em 1em;
+      padding: 0 0 1em 0;
+      background-color: #5383d3;
+      color: white;
+      border-radius: 4px;
+      align-items: center;
+  }
+
+  .popup .active-pet-main-col textarea {
+      max-width: 100%;
+      min-width: 90%;
+      margin: 1em 1em 1em 1em;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px;
+      border-color: rgba(0, 0, 0, 1);
+      border-radius: 4px;
+      box-sizing: border-box;
+      padding: 12px 20px;
+      color: rgba(0, 0, 0, 0.8);
+      font-weight: 500;
+  }
+
+  .popup .active-pet-main-col .saveBtn {
+      max-width: 40%;
+      min-width: 40%;
+      margin: 2em 0 2em 0;
+      padding: 1.5rem 0 1.5rem 0;
+      border-radius: 4px;
+      background-color: #5383d3;
+      color: white;
+      align-items: center;
+  }
+
   @media only screen and (max-width: 1176px) {
       .active-pet-main-col h4 {
           text-align: center;

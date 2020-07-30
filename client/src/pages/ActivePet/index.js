@@ -3,6 +3,7 @@ import "./active_pet.css"
 import moment from 'moment';
 import API from "../../API"
 import { Container, MainRow, MainCol } from '../../components/Grid';
+import Modal from "../../components/Modal"
 import TimePicker from 'react-time-picker';
 
 
@@ -13,6 +14,8 @@ const ActivePet = ({ session, allSessions, getSessions }) => {
     const [activeSession, setActiveSession] = useState([])
     const [updateBlock, setUpdateBlock] = useState({})
     const [dailySummary, setDailySummary] = useState({})
+    const [timeToEdit, setTimeToEdit] = useState({})
+    const [editState, setEditState] = useState(false)
 
     let timeArray = []
     let daysTime;
@@ -85,15 +88,18 @@ const ActivePet = ({ session, allSessions, getSessions }) => {
     // handles the on change when updating
     function updateStartTime(time) {
         setUpdateBlock({ ...updateBlock, "training_block.$.start": time })
+        setTimeToEdit({ ...timeToEdit, start: time })
     };
 
     function updateEndTime(time) {
         setUpdateBlock({ ...updateBlock, "training_block.$.end": time })
+        setTimeToEdit({ ...timeToEdit, end: time })
     };
 
     function updateHandleChange(e) {
         const { name, value } = e.target
         setUpdateBlock({ ...updateBlock, [name]: value })
+        setTimeToEdit({ ...timeToEdit, session_notes: value })
     };
 
     // handles submits
@@ -112,7 +118,7 @@ const ActivePet = ({ session, allSessions, getSessions }) => {
         API.submitNotes(dailySummary, activeSession[0]._id)
             .then(res => setActiveSession([res]))
             .catch(err => console.log(err))
-    }
+    };
 
     // handles update of new timeblock 
     function handleUpdate(e) {
@@ -122,6 +128,14 @@ const ActivePet = ({ session, allSessions, getSessions }) => {
             .then(res => setActiveSession([res]))
             .catch(err => console.log(err))
     };
+
+    function handleEdit(e) {
+        e.preventDefault()
+        const blockId = e.target.closest('button').id
+        const selectTimeBlock = activeSession[0].training_block.filter(session => session._id === blockId)
+        setTimeToEdit(selectTimeBlock)
+        setEditState(true)
+    }
 
     return (
         <>
@@ -210,7 +224,7 @@ const ActivePet = ({ session, allSessions, getSessions }) => {
                                     <button
                                         type="submit"
                                         id={timeBlock._id}
-                                        onClick={handleUpdate}
+                                        onClick={handleEdit}
                                         className="btn saveBtn col"
                                     >
                                         <p>Edit</p>
@@ -252,6 +266,53 @@ const ActivePet = ({ session, allSessions, getSessions }) => {
                     </MainCol>
                 </MainRow>
             </Container>
+
+            {
+                editState === true ?
+                    <Modal>
+                        <MainCol className="col main-col active-pet-main-col">
+                            <div className="row header-row">
+                                <h4>Edit Session Details</h4>
+                            </div>
+                            <div className="row time-block">
+                                <div className="col time start_time">
+                                    <h6 style={{ marginTop: "5px" }}>{convert(timeToEdit[0].start)}</h6>
+                                    <TimePicker
+                                        disableClock={true}
+                                        clearIcon={null}
+                                        onChange={updateStartTime}
+                                    />
+                                </div>
+                                <div className="col time">
+                                    <h6 style={{ marginTop: "5px" }}>{convert(timeToEdit[0].end)}</h6>
+                                    <TimePicker
+                                        disableClock={true}
+                                        clearIcon={null}
+                                        onChange={updateEndTime}
+                                    />
+                                </div>
+                                <textarea
+                                    className="col description"
+                                    placeholder="Session Notes"
+                                    name="training_block.$.session_notes"
+                                    defaultValue={timeToEdit[0].session_notes}
+                                    onChange={updateHandleChange}
+                                >
+                                </textarea>
+                                <button
+                                    disabled={!(timeToEdit.start && timeToEdit.end && timeToEdit.session_notes)}
+                                    type="submit"
+                                    id={timeToEdit[0]._id}
+                                    onClick={handleUpdate}
+                                    className="btn saveBtn col"
+                                >
+                                    <i className="fas fa-save"></i>
+                                </button>
+                            </div>
+                        </MainCol>
+                    </Modal>
+                    : null
+            }
         </>
 
     );
