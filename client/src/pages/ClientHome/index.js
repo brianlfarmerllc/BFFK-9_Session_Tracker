@@ -8,11 +8,11 @@ import Modal from "../../components/Modal"
 import API from "../../API"
 import Form from "../../components/Form"
 
-const ClientHome = ({ selectClient, petList, setSession, allSessions }) => {
+const ClientHome = ({ selectClient, petList, setSession, setPetList }) => {
     const [newPet, setNewPet] = useState({})
     const [selectPet, setSelectPet] = useState()
     const [activePet, setActivePet] = useState({})
-    const [trainingSessions, settrainingSessions] = useState([])
+    const [trainingSessions, setTrainingSessions] = useState([])
 
     const history = useHistory();
 
@@ -20,8 +20,9 @@ const ClientHome = ({ selectClient, petList, setSession, allSessions }) => {
         const clientPets = petList.filter(pet => pet.clientId === selectClient._id)
 
         if (clientPets[0] !== undefined) {
-            const activePetSessions = allSessions.filter(session => session.petId === clientPets[0]._id)
-            settrainingSessions(activePetSessions)
+            API.getPetSessionsByPetId(clientPets[0]._id)
+                .then(res => setTrainingSessions(res))
+                .catch(err => console.log(err))
         }
 
         if (clientPets.length > 0) {
@@ -30,7 +31,6 @@ const ClientHome = ({ selectClient, petList, setSession, allSessions }) => {
         } else {
             return
         }
-
     }, [])
 
     function handleChange(e) {
@@ -45,6 +45,7 @@ const ClientHome = ({ selectClient, petList, setSession, allSessions }) => {
                 setSelectPet([res])
                 setActivePet(res)
                 setNewPet({})
+                setPetList([ ...petList, res ])
             })
             .catch(err => console.log(err))
     }
@@ -53,7 +54,7 @@ const ClientHome = ({ selectClient, petList, setSession, allSessions }) => {
         e.preventDefault()
         API.newDay({ petId: activePet._id, day: new Date().toISOString() })
             .then(res => {
-                settrainingSessions([...trainingSessions, res])
+                setTrainingSessions([...trainingSessions, res])
                 setSession(res._id)
                 history.push("/training")
             })

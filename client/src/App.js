@@ -27,17 +27,18 @@ function App() {
 
   function getSessions() {
     API.getPetSessions()
-        .then(res => setAllSessions(res))
-        .catch(err => console.log(err))
-}
+      .then(res => setAllSessions(res))
+      .catch(err => console.log(err))
+  }
 
   return (
     <Router>
       <main>
-        <Header selectClient={selectClient} getSessions={getSessions}/>
+        <Header selectClient={selectClient} loadPets={loadPets} />
         <Switch>
           <Route exact path="/">
             <Clients
+              getSessions={getSessions}
               form={form}
               setForm={setForm}
               setSelectClient={setSelectClient} />
@@ -47,13 +48,13 @@ function App() {
               selectClient={selectClient[0]}
               petList={petList}
               setSession={setSession}
-              allSessions={allSessions} />
+              setPetList={setPetList} />
           </Route>
           <Route exact path="/training">
             <ActivePet
-            getSessions={getSessions}
-            allSessions={allSessions}
-            session={session} />
+              getSessions={getSessions}
+              allSessions={allSessions}
+              session={session} />
           </Route>
         </Switch>
       </main>

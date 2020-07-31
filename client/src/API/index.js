@@ -66,6 +66,17 @@ export default {
     return json;
   },
 
+  async getPetSessionsByPetId(PetId) {
+    let res;
+    try {
+      res = await fetch("/api/session/" + PetId);
+    } catch (err) {
+      console.log(err)
+    }
+    const json = await res.json();
+    return json;
+  },
+
   async sessionBlock(sessionId, sessionInfo) {
     const res = await fetch("/api/session/timeblock/" + sessionId, {
       method: "PATCH",
@@ -80,6 +91,15 @@ export default {
     const res = await fetch("/api/session/updateblock/" + sessionId + "/" + blockId, {
       method: "PATCH",
       body: JSON.stringify(updateBlock),
+      headers: { "Content-Type": "application/json" }
+    });
+    const json = await res.json();
+    return json;
+  },
+
+  async deleteSessionBlock(blockId, sessionId,) {
+    const res = await fetch("/api/session/deleteblock/" + sessionId + "/" + blockId, {
+      method: "DELETE",
       headers: { "Content-Type": "application/json" }
     });
     const json = await res.json();

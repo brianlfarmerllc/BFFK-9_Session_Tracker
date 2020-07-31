@@ -147,15 +147,23 @@
       text-align: center;
   }
 
-  .popup .active-pet-main-col .time {
+  .popup .active-pet-main-col .time  {
       max-width: none;
       min-width: 40%;
-      margin: 2em 1em 2em 1em;
+      margin: 2em 1em 1em 1em;
       padding: 0 0 1em 0;
       background-color: #5383d3;
       color: white;
       border-radius: 4px;
       align-items: center;
+  }
+
+  .popup .active-pet-main-col .btn {
+    max-width: none;
+    min-width: 40%;
+    box-shadow: none;
+    margin:0 1em 0 1em;
+    padding:0;
   }
 
   .popup .active-pet-main-col textarea {
@@ -173,9 +181,9 @@
   }
 
   .popup .active-pet-main-col .saveBtn {
-      max-width: 40%;
-      min-width: 40%;
-      margin: 2em 0 2em 0;
+      max-width: 100%;
+      min-width: 100%;
+      margin: 1em 0 1em 0;
       padding: 1.5rem 0 1.5rem 0;
       border-radius: 4px;
       background-color: #5383d3;

@@ -16,6 +16,13 @@ module.exports = {
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
+  findAllSessionsByPetId: function (req, res, model) {
+    model
+      .find({ petId: req.params._id })
+      .sort({ day: 1 })
+      .then((dbModel) => res.json(dbModel))
+      .catch((err) => res.status(422).json(err));
+  },
   findOne: function (req, res, model) {
     model
       .findOne({ _id: req.params.id })
@@ -61,22 +68,26 @@ module.exports = {
       .catch((err) => res.status(422).json(err));
   },
 
-  findByUserId: function (req, res, model) {
-    model
-      .find({ userId: req.user._id })
-      .then((dbModel) => res.json(dbModel))
-      .catch((err) => res.status(422).json(err));
-  },
   create: function (req, res, model) {
     model
       .create(req.body)
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
-  remove: function (req, res, model) {
+  removeTimeBlock: function (req, res, model) {
     model
-      .findById({ _id: req.params.id })
-      .then((dbModel) => dbModel.remove())
+      .findOneAndUpdate(
+        { _id: req.params.session },
+        {
+          $pull:
+          {
+            training_block: { _id: req.params.block }
+          }
+        },
+        {
+          new: true
+        }
+      )
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },

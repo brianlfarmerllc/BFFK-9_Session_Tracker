@@ -3,7 +3,7 @@ import logo from "../../bffk91024.png"
 import "./header.css"
 import { Link } from 'react-router-dom';
 
-const Header = ({ selectClient, getSessions }) => {
+const Header = ({ selectClient, loadPets }) => {
     return (
         <header className="container-fluid header-basic-light">
 

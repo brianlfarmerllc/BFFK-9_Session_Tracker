@@ -6,12 +6,13 @@ import { Input, Select, FormBtn } from "../../components/FormComponents";
 import API from "../../API"
 import Form from "../../components/Form"
 
-const Clients = ({ form, setForm, setSelectClient }) => {
+const Clients = ({ form, setForm, setSelectClient, getSessions }) => {
     const [clientList, setClientList] = useState([])
     const history = useHistory();
 
     useEffect(() => {
         loadClients()
+        getSessions()
     }, [])
 
     function loadClients() {
@@ -63,7 +64,7 @@ const Clients = ({ form, setForm, setSelectClient }) => {
                     </ul>
                 </SideCol>
                 <MainCol className="col col-6 main-col clientForm">
-                    
+
                     <Form
                         header="New Client Info"
                     >
@@ -93,9 +94,9 @@ const Clients = ({ form, setForm, setSelectClient }) => {
                             value={form.source || ""} choose={"Source"}
                             options={["Client Referal", "Instagram", "Paws in The City", "Vet Partnership", "Other"]} />
 
-                        <FormBtn 
-                        disabled={!(form.name && form.phone && form.email && form.address && form.city && form.source)}
-                        onClick={handleSubmit}>Save New Client</FormBtn>
+                        <FormBtn
+                            disabled={!(form.name && form.phone && form.email && form.address && form.city && form.source)}
+                            onClick={handleSubmit}>Save New Client</FormBtn>
                     </Form>
                 </MainCol>
             </MainRow>

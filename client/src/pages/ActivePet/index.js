@@ -107,7 +107,7 @@ const ActivePet = ({ session, allSessions, getSessions }) => {
         e.preventDefault()
         const time = timeDiff(block.start, block.end).split(":")
         const seconds = (time[0]) * 60 * 60 + (time[1]) * 60
-        API.sessionBlock(session, {...block, sec:seconds})
+        API.sessionBlock(session, { ...block, sec: seconds })
             .then(res => {
                 setActiveSession([res])
                 setBlock({})
@@ -128,7 +128,7 @@ const ActivePet = ({ session, allSessions, getSessions }) => {
         const time = timeDiff(timeToEdit.start, timeToEdit.end).split(":")
         const seconds = (time[0]) * 60 * 60 + (time[1]) * 60
         const blockId = e.target.closest('button').id
-        API.updateSessionBlock(blockId, activeSession[0]._id, {...updateBlock, "training_block.$.sec":seconds})
+        API.updateSessionBlock(blockId, activeSession[0]._id, { ...updateBlock, "training_block.$.sec": seconds })
             .then(res => {
                 setActiveSession([res])
                 setEditState(false)
@@ -142,6 +142,22 @@ const ActivePet = ({ session, allSessions, getSessions }) => {
         const selectTimeBlock = activeSession[0].training_block.filter(session => session._id === blockId)
         setTimeToEdit(selectTimeBlock)
         setEditState(true)
+    }
+
+    function handleDelete(e) {
+        e.preventDefault()
+        const blockId = e.target.closest('button').id
+        API.deleteSessionBlock(blockId, activeSession[0]._id)
+            .then(res => {
+                setActiveSession([res])
+                setEditState(false)
+            })
+            .catch(err => console.log(err))
+    }
+
+    function handleCancel(e) {
+        e.preventDefault()
+        setEditState(false)
     }
 
     return (
@@ -205,27 +221,18 @@ const ActivePet = ({ session, allSessions, getSessions }) => {
                                         Session {index + 1} - Time: {timeDiff(timeBlock.start, timeBlock.end)}
                                     </h5>
                                     <div className="col time">
+                                        <h6 style={{ marginTop: "15px" }}>Start Time</h6>
                                         <h6 style={{ marginTop: "5px" }}>{convert(timeBlock.start)}</h6>
-                                        <TimePicker
-                                            disableClock={true}
-                                            clearIcon={null}
-                                            onChange={updateStartTime}
-                                        />
                                     </div>
                                     <div className="col time">
+                                        <h6 style={{ marginTop: "15px" }}>End Time</h6>
                                         <h6 style={{ marginTop: "5px" }}>{convert(timeBlock.end)}</h6>
-                                        <TimePicker
-                                            disableClock={true}
-                                            clearIcon={null}
-                                            onChange={updateEndTime}
-                                        />
                                     </div>
                                     <textarea
                                         className="col description"
-                                        placeholder="Session Notes"
                                         name="training_block.$.session_notes"
-                                        defaultValue={timeBlock.session_notes}
-                                        onChange={updateHandleChange}
+                                        value={timeBlock.session_notes}
+                                        readOnly={true}
                                     >
                                     </textarea>
                                     <button
@@ -306,15 +313,37 @@ const ActivePet = ({ session, allSessions, getSessions }) => {
                                     onChange={updateHandleChange}
                                 >
                                 </textarea>
-                                <button
-                                    disabled={!(timeToEdit.start && timeToEdit.end && timeToEdit.session_notes)}
-                                    type="submit"
-                                    id={timeToEdit[0]._id}
-                                    onClick={handleUpdate}
-                                    className="btn saveBtn col"
-                                >
-                                    <i className="fas fa-save"></i>
-                                </button>
+                                <div className="col btn">
+                                    <button
+                                        disabled={!(timeToEdit.start && timeToEdit.end && timeToEdit.session_notes)}
+                                        type="submit"
+                                        id={timeToEdit[0]._id}
+                                        onClick={handleUpdate}
+                                        className="btn saveBtn col"
+                                    >
+                                        <i className="fas fa-save"></i>
+                                    </button>
+                                </div>
+                                <div className="col btn">
+                                    <button
+                                        type="submit"
+                                        id={timeToEdit[0]._id}
+                                        onClick={handleDelete}
+                                        className="btn saveBtn col"
+                                    >
+                                        <i className="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                                <div className="col btn">
+                                    <button
+                                        type="submit"
+                                        id={timeToEdit[0]._id}
+                                        onClick={handleCancel}
+                                        className="btn saveBtn col"
+                                    >
+                                        <p>Cancel</p>
+                                    </button>
+                                </div>
                             </div>
                         </MainCol>
                     </Modal>
