@@ -105,7 +105,9 @@ const ActivePet = ({ session, allSessions, getSessions }) => {
     // handles submits
     function handleSubmit(e) {
         e.preventDefault()
-        API.sessionBlock(session, block)
+        const time = timeDiff(block.start, block.end).split(":")
+        const seconds = (time[0]) * 60 * 60 + (time[1]) * 60
+        API.sessionBlock(session, {...block, sec:seconds})
             .then(res => {
                 setActiveSession([res])
                 setBlock({})
@@ -123,9 +125,14 @@ const ActivePet = ({ session, allSessions, getSessions }) => {
     // handles update of new timeblock 
     function handleUpdate(e) {
         e.preventDefault()
+        const time = timeDiff(timeToEdit.start, timeToEdit.end).split(":")
+        const seconds = (time[0]) * 60 * 60 + (time[1]) * 60
         const blockId = e.target.closest('button').id
-        API.updateSessionBlock(blockId, activeSession[0]._id, updateBlock)
-            .then(res => setActiveSession([res]))
+        API.updateSessionBlock(blockId, activeSession[0]._id, {...updateBlock, "training_block.$.sec":seconds})
+            .then(res => {
+                setActiveSession([res])
+                setEditState(false)
+            })
             .catch(err => console.log(err))
     };
 

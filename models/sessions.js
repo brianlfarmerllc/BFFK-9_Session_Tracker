@@ -9,8 +9,9 @@ sessionSchema = new Schema(
                 start: { type: String },
                 session_notes: { type: String },
                 end: { type: String },
+                sec: { type: Number },
             },
-           
+
         ],
         days_notes: { type: String, default: "Record Notes on Todays Activities" },
         petId: { type: Schema.Types.ObjectId, ref: "Pet", required: true },
