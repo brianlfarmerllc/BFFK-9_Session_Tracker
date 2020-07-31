@@ -8,11 +8,11 @@ import Modal from "../../components/Modal"
 import API from "../../API"
 import Form from "../../components/Form"
 
-const ClientHome = ({ selectClient, petList, setSession, setPetList }) => {
+const ClientHome = ({ selectClient, petList, setPetList, setSession, trainingSessions, setTrainingSessions  }) => {
     const [newPet, setNewPet] = useState({})
     const [selectPet, setSelectPet] = useState()
     const [activePet, setActivePet] = useState({})
-    const [trainingSessions, setTrainingSessions] = useState([])
+   
 
     const history = useHistory();
 
@@ -31,6 +31,7 @@ const ClientHome = ({ selectClient, petList, setSession, setPetList }) => {
         } else {
             return
         }
+
     }, [])
 
     function handleChange(e) {

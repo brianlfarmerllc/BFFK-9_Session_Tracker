@@ -9,7 +9,7 @@ import TimePicker from 'react-time-picker';
 
 
 
-const ActivePet = ({ session, allSessions, getSessions }) => {
+const ActivePet = ({ session, trainingSessions }) => {
     const [block, setBlock] = useState({})
     const [activeSession, setActiveSession] = useState([])
     const [updateBlock, setUpdateBlock] = useState({})
@@ -20,9 +20,14 @@ const ActivePet = ({ session, allSessions, getSessions }) => {
     let timeArray = []
     let daysTime;
 
+    // useEffect(() => {
+    //     getSessions()
+    //     const active = allSessions.filter(allSession => allSession._id === session);
+    //     setActiveSession(active);
+    // }, [])
+
     useEffect(() => {
-        getSessions()
-        const active = allSessions.filter(allSession => allSession._id === session);
+        const active = trainingSessions.filter(trainingSession => trainingSession._id === session);
         setActiveSession(active);
     }, [])
 
@@ -258,7 +263,7 @@ const ActivePet = ({ session, allSessions, getSessions }) => {
                                         className="col description"
                                         placeholder="Days Notes"
                                         name="days_notes"
-                                        defaultValue={dailySummary.days_notes || activeSession[0].days_notes}
+                                        defaultValue={activeSession[0].days_notes || dailySummary.days_notes}
                                         onChange={handleDailyNotes}
                                     >
                                     </textarea>

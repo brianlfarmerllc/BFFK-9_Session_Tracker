@@ -13,6 +13,7 @@ function App() {
   const [petList, setPetList] = useState([])
   const [allSessions, setAllSessions] = useState([])
   const [session, setSession] = useState()
+  const [trainingSessions, setTrainingSessions] = useState([])
 
   useEffect(() => {
     loadPets()
@@ -48,13 +49,16 @@ function App() {
               selectClient={selectClient[0]}
               petList={petList}
               setSession={setSession}
-              setPetList={setPetList} />
+              setPetList={setPetList}
+              trainingSessions={trainingSessions}
+              setTrainingSessions={setTrainingSessions} />
           </Route>
           <Route exact path="/training">
             <ActivePet
               getSessions={getSessions}
               allSessions={allSessions}
-              session={session} />
+              session={session} 
+              trainingSessions={trainingSessions}/>
           </Route>
         </Switch>
       </main>
