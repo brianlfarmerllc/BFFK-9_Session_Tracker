@@ -7,6 +7,7 @@ const TrainingCard = (props) => {
             <div className="card-body">
                 <h6 className="card-title">{props.date}</h6>
                 <h6 className="card-subtitle mb-3">Day {props.day}</h6>
+                <h6 className="card-text">Daily Notes:</h6>
                 <p className="card-text">{props.days_notes}</p>
             </div>
         </div>

@@ -20,12 +20,6 @@ const ActivePet = ({ session, trainingSessions }) => {
     let timeArray = []
     let daysTime;
 
-    // useEffect(() => {
-    //     getSessions()
-    //     const active = allSessions.filter(allSession => allSession._id === session);
-    //     setActiveSession(active);
-    // }, [])
-
     useEffect(() => {
         const active = trainingSessions.filter(trainingSession => trainingSession._id === session);
         setActiveSession(active);

@@ -11,13 +11,11 @@ function App() {
   const [form, setForm] = useState({})
   const [selectClient, setSelectClient] = useState({})
   const [petList, setPetList] = useState([])
-  const [allSessions, setAllSessions] = useState([])
-  const [session, setSession] = useState()
+  const [session, setSession] = useState("")
   const [trainingSessions, setTrainingSessions] = useState([])
 
   useEffect(() => {
     loadPets()
-    getSessions()
   }, [])
 
   function loadPets() {
@@ -26,20 +24,13 @@ function App() {
       .catch(err => console.log(err))
   }
 
-  function getSessions() {
-    API.getPetSessions()
-      .then(res => setAllSessions(res))
-      .catch(err => console.log(err))
-  }
-
   return (
     <Router>
       <main>
-        <Header selectClient={selectClient} loadPets={loadPets} />
+        <Header selectClient={selectClient} />
         <Switch>
           <Route exact path="/">
             <Clients
-              getSessions={getSessions}
               form={form}
               setForm={setForm}
               setSelectClient={setSelectClient} />
@@ -55,8 +46,6 @@ function App() {
           </Route>
           <Route exact path="/training">
             <ActivePet
-              getSessions={getSessions}
-              allSessions={allSessions}
               session={session} 
               trainingSessions={trainingSessions}/>
           </Route>

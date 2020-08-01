@@ -6,13 +6,12 @@ import { Input, Select, FormBtn } from "../../components/FormComponents";
 import API from "../../API"
 import Form from "../../components/Form"
 
-const Clients = ({ form, setForm, setSelectClient, getSessions }) => {
+const Clients = ({ form, setForm, setSelectClient}) => {
     const [clientList, setClientList] = useState([])
     const history = useHistory();
 
     useEffect(() => {
         loadClients()
-        getSessions()
     }, [])
 
     function loadClients() {

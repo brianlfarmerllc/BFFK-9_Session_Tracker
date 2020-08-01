@@ -8,11 +8,11 @@ import Modal from "../../components/Modal"
 import API from "../../API"
 import Form from "../../components/Form"
 
-const ClientHome = ({ selectClient, petList, setPetList, setSession, trainingSessions, setTrainingSessions  }) => {
+const ClientHome = ({ selectClient, petList, setPetList, setSession, trainingSessions, setTrainingSessions }) => {
     const [newPet, setNewPet] = useState({})
     const [selectPet, setSelectPet] = useState()
     const [activePet, setActivePet] = useState({})
-   
+
 
     const history = useHistory();
 
@@ -46,7 +46,7 @@ const ClientHome = ({ selectClient, petList, setPetList, setSession, trainingSes
                 setSelectPet([res])
                 setActivePet(res)
                 setNewPet({})
-                setPetList([ ...petList, res ])
+                setPetList([...petList, res])
             })
             .catch(err => console.log(err))
     }
@@ -144,7 +144,11 @@ const ClientHome = ({ selectClient, petList, setPetList, setSession, trainingSes
                                                         day={index + 1}
                                                         id={session._id}
                                                         findDay={findDay}
-                                                        days_notes={session.days_notes}
+                                                        days_notes={
+                                                            session.days_notes.length < 90 ?
+                                                                session.days_notes
+                                                                : session.days_notes.substring(0, 90) + " ..."
+                                                        }
                                                     />
                                                 </Col>
 
