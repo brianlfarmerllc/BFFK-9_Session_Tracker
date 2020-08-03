@@ -1,10 +1,28 @@
 .card {
     border-radius: 4px;
-    box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.05), 0px 0px 5px 7px rgba(0, 0, 0, 0.05);
     cursor: pointer;
     transition: 0.4s;
-    width: 250px;
-    height: 200px;
+    width: 100%;
+    height: 165px;
+    border: none;
+    background-color: #eaf0f2;
+}
+
+.card .card-header-row {
+  margin-bottom: 0;
+}
+
+.card .card-header-row button {
+    width: 35px;
+    height: 35px;
+    float: right;
+    background-color: #5383d3;
+    color:white;
+    border: none;
+}
+
+.card .card-header-row button:hover {
+transform: scale(1.1, 1.1);
 }
 
 .card .card-title {
@@ -20,14 +38,11 @@
 }
 
 .card:hover {
-    transform: scale(0.97, 0.97);
-    background-color: #5383d3;
-    box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.25), 0px 0px 15px 7px rgba(0, 0, 0, 0.22);
-    transform: translateZ(0);
+    box-shadow: 0px 0px 20px 3px rgba(0, 0, 0, 0.25);
 }
 
-.card:hover h6, .card:hover p {
-    color: white;
+@media (max-width: 500px) {
+    .card {
+        height: 200px;
+    }
 }
-
-

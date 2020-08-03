@@ -17,9 +17,6 @@ const ActivePet = ({ session, trainingSessions }) => {
     const [timeToEdit, setTimeToEdit] = useState({})
     const [editState, setEditState] = useState(false)
 
-    let timeArray = []
-    let daysTime;
-
     useEffect(() => {
         const active = trainingSessions.filter(trainingSession => trainingSession._id === session);
         setActiveSession(active);
@@ -49,21 +46,9 @@ const ActivePet = ({ session, trainingSessions }) => {
         return new Date(date).toLocaleDateString(options);
     }
 
-    // function to sum the total session time for the day
-    function totalTime() {
-        if (activeSession.length > 0) {
-            for (let i = 0; i < activeSession[0].training_block.length; i++) {
-                const time = timeDiff(activeSession[0].training_block[i].start, activeSession[0].training_block[i].end);
-                const split = time.split(':')
-                const seconds = (split[0]) * 60 * 60 + (split[1]) * 60
-                timeArray.push(seconds)
-                const totalSeconds = timeArray.reduce((a, b) => a + b, 0)
-                daysTime = new Date(totalSeconds * 1000).toISOString().substr(11, 5)
-            }
-        };
-    };
-
-    totalTime()
+    function totalTime(time) {
+        return new Date(time * 1000).toISOString().substr(11, 5)
+    } 
 
     // handles the on change when creating new 
     function startTime(time) {
@@ -165,7 +150,7 @@ const ActivePet = ({ session, trainingSessions }) => {
                 <MainRow>
                     <MainCol className="col main-col active-pet-main-col">
                         <div className="row header-row">
-                            <h4>Enter New Training Session Details</h4>
+                            <h4 style={{marginBottom:"24px"}}>Enter New Training Session Details</h4>
                         </div>
                         <div className="row time-block">
                             <div className="col time start_time">
@@ -250,7 +235,7 @@ const ActivePet = ({ session, trainingSessions }) => {
                         {activeSession.length > 0 ?
                             <>
                                 <div className="row header-row" style={{ marginTop: "2rem" }}>
-                                    <h4 >Daily Summary </h4>
+                                    <h4 style={{marginBottom:"16px"}}>Daily Summary </h4>
                                 </div>
                                 <div className="row time-block">
                                     <textarea
@@ -271,7 +256,7 @@ const ActivePet = ({ session, trainingSessions }) => {
                                     </button>
                                 </div>
                                 <div className="row header-row" style={{ paddingTop: "0", marginBottom: "1em" }}>
-                                    <h4>Daily Training Time {daysTime}</h4>
+                                    <h4 style={{marginBottom:"24px"}}>Daily Training Time {totalTime(activeSession[0].total_sec)}</h4>
                                 </div>
                             </>
                             : null

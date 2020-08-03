@@ -69,6 +69,14 @@ const ClientHome = ({ selectClient, petList, setPetList, setSession, trainingSes
         history.push("/training")
     }
 
+    function deleteDay(e) {
+        e.preventDefault();
+    }
+
+    function totalTime(time) {
+        return new Date(time * 1000).toISOString().substr(11, 5)
+    } 
+
     function formatDate(date) {
         const options = {
             weekday: "long",
@@ -138,16 +146,18 @@ const ClientHome = ({ selectClient, petList, setPetList, setSession, trainingSes
                                         trainingSessions ?
 
                                             trainingSessions.map((session, index) => (
-                                                <Col className="col mt-4" key={session._id}>
+                                                <Col className="col-12 col-xl-6 mt-4" key={session._id}>
                                                     <TrainingCard
                                                         date={formatDate(session.day)}
                                                         day={index + 1}
                                                         id={session._id}
                                                         findDay={findDay}
+                                                        sessionTime={totalTime(session.total_sec)}
+                                                        delete={deleteDay}
                                                         days_notes={
                                                             session.days_notes.length < 90 ?
                                                                 session.days_notes
-                                                                : session.days_notes.substring(0, 90) + " ..."
+                                                                : session.days_notes.substring(0, 85) + " ..."
                                                         }
                                                     />
                                                 </Col>
