@@ -48,7 +48,7 @@ const ActivePet = ({ session, trainingSessions }) => {
 
     function totalTime(time) {
         return new Date(time * 1000).toISOString().substr(11, 5)
-    } 
+    }
 
     // handles the on change when creating new 
     function startTime(time) {
@@ -150,7 +150,16 @@ const ActivePet = ({ session, trainingSessions }) => {
                 <MainRow>
                     <MainCol className="col main-col active-pet-main-col">
                         <div className="row header-row">
-                            <h4 style={{marginBottom:"24px"}}>Enter New Training Session Details</h4>
+                            <div className="col header-col">
+                                <h4>Enter Session Details</h4>
+                            </div>
+                            
+                                <button
+                                 type="submit"
+                                 onClick={handleEdit}
+                                 className="btn delete_button col"
+                                 ><p>Delete Day</p></button>
+                            
                         </div>
                         <div className="row time-block">
                             <div className="col time start_time">
@@ -191,13 +200,6 @@ const ActivePet = ({ session, trainingSessions }) => {
                         </div>
 
                         {activeSession.length > 0 ?
-                            <div className="row header-row" style={{ marginTop: "2rem" }}>
-                                <h4>{formatDate(activeSession[0].day)} Training Details</h4>
-                            </div>
-                            : null}
-
-
-                        {activeSession.length > 0 ?
 
                             activeSession[0].training_block.map((timeBlock, index) => (
                                 <div className="row time-block" key={index}>
@@ -235,7 +237,8 @@ const ActivePet = ({ session, trainingSessions }) => {
                         {activeSession.length > 0 ?
                             <>
                                 <div className="row header-row" style={{ marginTop: "2rem" }}>
-                                    <h4 style={{marginBottom:"16px"}}>Daily Summary </h4>
+                                    <h4 style={{ marginBottom: "16px" }}>Daily Summary </h4>
+                                    <h4>Daily Training Time {totalTime(activeSession[0].total_sec)}</h4>
                                 </div>
                                 <div className="row time-block">
                                     <textarea
@@ -256,7 +259,7 @@ const ActivePet = ({ session, trainingSessions }) => {
                                     </button>
                                 </div>
                                 <div className="row header-row" style={{ paddingTop: "0", marginBottom: "1em" }}>
-                                    <h4 style={{marginBottom:"24px"}}>Daily Training Time {totalTime(activeSession[0].total_sec)}</h4>
+
                                 </div>
                             </>
                             : null

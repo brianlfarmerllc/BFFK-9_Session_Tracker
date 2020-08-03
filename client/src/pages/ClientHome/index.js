@@ -69,10 +69,6 @@ const ClientHome = ({ selectClient, petList, setPetList, setSession, trainingSes
         history.push("/training")
     }
 
-    function deleteDay(e) {
-        e.preventDefault();
-    }
-
     function totalTime(time) {
         return new Date(time * 1000).toISOString().substr(11, 5)
     } 
@@ -153,7 +149,6 @@ const ClientHome = ({ selectClient, petList, setPetList, setSession, trainingSes
                                                         id={session._id}
                                                         findDay={findDay}
                                                         sessionTime={totalTime(session.total_sec)}
-                                                        delete={deleteDay}
                                                         days_notes={
                                                             session.days_notes.length < 90 ?
                                                                 session.days_notes

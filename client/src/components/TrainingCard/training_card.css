@@ -8,23 +8,6 @@
     background-color: #eaf0f2;
 }
 
-.card .card-header-row {
-  margin-bottom: 0;
-}
-
-.card .card-header-row button {
-    width: 35px;
-    height: 35px;
-    float: right;
-    background-color: #5383d3;
-    color:white;
-    border: none;
-}
-
-.card .card-header-row button:hover {
-transform: scale(1.1, 1.1);
-}
-
 .card .card-title {
     font-family: sans-serif;
     font-weight: bold;
