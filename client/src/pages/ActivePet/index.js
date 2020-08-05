@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'; 
+import { useHistory } from "react-router-dom";
 import "./active_pet.css"
 import moment from 'moment';
 import API from "../../API"
@@ -16,6 +17,9 @@ const ActivePet = ({ session, trainingSessions }) => {
     const [dailySummary, setDailySummary] = useState({})
     const [timeToEdit, setTimeToEdit] = useState({})
     const [editState, setEditState] = useState(false)
+    const [deleteState, setDeleteState] = useState(false)
+
+    const history = useHistory();
 
     useEffect(() => {
         const active = trainingSessions.filter(trainingSession => trainingSession._id === session);
@@ -138,10 +142,25 @@ const ActivePet = ({ session, trainingSessions }) => {
             })
             .catch(err => console.log(err))
     }
+    function handleDeleteDay(e) {
+        e.preventDefault()
+        API.deleteDay(activeSession[0]._id)
+            .then(res => {
+                history.push("/clients/home")
+                setDeleteState(false)
+            })
+            .catch(err => console.log(err))
+    }
+
+    function handleAlert(e) {
+        e.preventDefault()
+        setDeleteState(true)
+    }
 
     function handleCancel(e) {
         e.preventDefault()
         setEditState(false)
+        setDeleteState(false)
     }
 
     return (
@@ -153,13 +172,15 @@ const ActivePet = ({ session, trainingSessions }) => {
                             <div className="col header-col">
                                 <h4>Enter Session Details</h4>
                             </div>
-                            
-                                <button
-                                 type="submit"
-                                 onClick={handleEdit}
-                                 className="btn delete_button col"
-                                 ><p>Delete Day</p></button>
-                            
+
+                            <button
+                                type="button"
+                                onClick={handleAlert}
+                                className="btn delete_button col"
+                            >
+                                <p>Delete Day</p>
+                            </button>
+
                         </div>
                         <div className="row time-block">
                             <div className="col time start_time">
@@ -237,8 +258,8 @@ const ActivePet = ({ session, trainingSessions }) => {
                         {activeSession.length > 0 ?
                             <>
                                 <div className="row header-row" style={{ marginTop: "2rem" }}>
-                                    <h4 style={{ marginBottom: "16px" }}>Daily Summary </h4>
-                                    <h4>Daily Training Time {totalTime(activeSession[0].total_sec)}</h4>
+                                    <h4 style={{ marginBottom: "16px" }}>Daily Summary Time {totalTime(activeSession[0].total_sec)} </h4>
+                                    {/* <h4>Daily Training Time {totalTime(activeSession[0].total_sec)}</h4> */}
                                 </div>
                                 <div className="row time-block">
                                     <textarea
@@ -329,6 +350,38 @@ const ActivePet = ({ session, trainingSessions }) => {
                                         className="btn saveBtn col"
                                     >
                                         <p>Cancel</p>
+                                    </button>
+                                </div>
+                            </div>
+                        </MainCol>
+                    </Modal>
+                    : null
+            }
+
+            {
+                deleteState === true ?
+                    <Modal>
+                        <MainCol className="col main-col active-pet-main-col" style={{margin: "auto auto"}}>
+                            <div className="row header-row">
+                                <h4>Are you sure you want to delete the entire day? Deleting the day will also remove all this days session info.</h4>
+                            </div>
+                            <div className="row time-block">
+                                <div className="col btn">
+                                    <button
+                                        type="submit"
+                                        onClick={handleCancel}
+                                        className="btn saveBtn col"
+                                    >
+                                        <p>Cancel</p>
+                                    </button>
+                                </div>
+                                <div className="col btn">
+                                    <button
+                                        type="submit"
+                                        onClick={handleDeleteDay}
+                                        className="btn saveBtn col"
+                                    >
+                                        <i className="fas fa-trash"></i>
                                     </button>
                                 </div>
                             </div>

@@ -1,7 +1,7 @@
-.side-col h2 {
+.side-col h2, .main-col h2 {
     padding: 4px 0;
     margin-bottom: 1rem;
-    font-size: 30px;
+    font-size: 25px;
     color: #4f4f50;
 }
 
@@ -18,6 +18,15 @@ h5 {
     padding: 5px;
     margin-bottom: 0;
     height: auto;
+    font-size: 16px;
+}
+
+.main-col .header_row {
+    margin-bottom: 0;
+}
+.main-col .header_row .new_day {
+    float: right;
+    margin-top: 0px;
 }
 
 .side-col h5 span {
@@ -29,7 +38,10 @@ h5 {
 }
 
 .main-col button {
-    max-width: 200px;
+    max-width: 175px;
+}
+.main-col button:first-child {
+    font-size: 16px;
 }
 
 .popup .modal-row .col {

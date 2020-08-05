@@ -6,11 +6,13 @@ const db = require("../../models");
 router
   .route("/")
   .get((req, res) => controller.findAllSessions(req, res, db.Session))
-  .post((req, res) => controller.create(req, res, db.Session));
+  .post((req, res) => controller.create(req, res, db.Session))
+  
 
   router
   .route("/:_id")
   .get((req, res) => controller.findAllSessionsByPetId(req, res, db.Session))
+  .delete((req, res) => controller.remove(req, res, db.Session))
 
 router
   .route("/timeblock/:_id")

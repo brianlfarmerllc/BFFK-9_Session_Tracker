@@ -71,7 +71,7 @@ const ClientHome = ({ selectClient, petList, setPetList, setSession, trainingSes
 
     function totalTime(time) {
         return new Date(time * 1000).toISOString().substr(11, 5)
-    } 
+    }
 
     function formatDate(date) {
         const options = {
@@ -127,13 +127,20 @@ const ClientHome = ({ selectClient, petList, setPetList, setSession, trainingSes
                     <MainCol className="col main-col">
                         {selectPet ?
                             <>
-                                <h2>{activePet.name}'s Training Dashboard</h2>
+                                <div className="row header_row">
+                                    <div className="col">
+                                        <h2>{activePet.name}'s Training Dashboard</h2>
+                                    </div>
+                                    <div className="col">
+                                        <FormBtn className="new_day" onClick={startNewDay}>Start New Day</FormBtn>
+                                    </div>
+                                </div>
+
                                 <Row className="row">
                                     <h5>Main Issues:</h5>
                                     <h5><span>{activePet.issues}</span></h5>
                                     <h5>Additional Notes:</h5>
                                     <h5><span>{activePet.notes}</span></h5>
-                                    <FormBtn onClick={startNewDay}>Start New Day</FormBtn>
                                 </Row >
 
 

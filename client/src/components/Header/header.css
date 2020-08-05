@@ -19,9 +19,10 @@
 
 .header-basic-light .header-limiter h1 {
 	float: left;
+	padding-left: 50px;
 	font: normal 28px Cookie, Arial, Helvetica, sans-serif;
 	margin: 0;
-	font-size: 40px;
+	font-size: 35px;
 }
 
 .header-basic-light .header-limiter h1 span {
@@ -29,8 +30,8 @@
 }
 
 .header-basic-light .header-limiter img {
-	height: 2em;
-	width: 2em;
+	height: 2rem;
+	width: 2rem;
 	margin-right: 1em;
 }
 
@@ -42,7 +43,7 @@
 }
 
 .header-basic-light .header-limiter nav {
-	font: 30px Arial, Helvetica, sans-serif;
+	font: 20px Arial, Helvetica, sans-serif;
 	line-height: 75px;
 	float: right;
 	padding-right: 2em;
@@ -82,11 +83,16 @@
 	.header-basic-light .header-limiter h1 {
 		text-align: center;
 		float: none;
+		padding-left: 0px;
 	}
 	.header-basic-light .header-limiter nav {
 		/* margin-top: 1em; */
 		text-align: center;
 		float: none;
 		padding-right: 0;
+	}
+
+	.header-basic-light .header-limiter nav ul {
+		padding-left: 0px;
 	}
 }

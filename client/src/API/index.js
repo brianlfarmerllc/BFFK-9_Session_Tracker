@@ -66,6 +66,15 @@ export default {
     return json;
   },
 
+  async deleteDay(dayId) {
+    const res = await fetch("/api/session/" + dayId, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" }
+    });
+    const json = await res.json();
+    return json;
+  },
+
   async getPetSessionsByPetId(PetId) {
     let res;
     try {

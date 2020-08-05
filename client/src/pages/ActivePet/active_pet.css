@@ -11,7 +11,7 @@
       text-align: start;
       padding: 0;
       color: #4f4f50;
-      font-size: 30px;
+      font-size: 25px;
   }
 
   .active-pet-main-col .header-row {
@@ -107,7 +107,7 @@
   }
 
   .saveBtn:hover, .delete_button:hover {
-      transform: scale(1.02, 1.02);
+      transform: scale(0.99, 0.99);
       text-decoration: none;
       color: white;
   }
@@ -262,5 +262,10 @@
           min-width: 60%;
           margin: 1em 0 1em 0;
           padding: 1.5rem 0 1.5rem 0;
+      }
+
+      .popup .active-pet-main-col .header-row {
+          margin-left: 0;
+          margin-right: 0;
       }
   }
