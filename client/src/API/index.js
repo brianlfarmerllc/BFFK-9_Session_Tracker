@@ -10,6 +10,15 @@ export default {
     return json;
   },
 
+  async deleteClient(clientId) {
+    const res = await fetch("/api/client/" + clientId, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" }
+    });
+    const json = await res.json();
+    return json;
+  },
+
   async returnClients() {
     let res;
     try {

@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from "../../bffk91024.png"
 import "./header.css"
 import { Link } from 'react-router-dom';
 
@@ -12,8 +11,7 @@ const Header = ({ selectClient }) => {
                 <div className="col-12 col-lg-6 header-col">
 
                     <h1><a href="/">
-                        {/* <img src={logo} alt="best foot forward k9 training company logo" /> */}
-                    Session<span>Tracker</span>
+                        Session<span>Tracker</span>
                     </a>
                     </h1>
 

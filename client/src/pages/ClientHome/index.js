@@ -77,6 +77,25 @@ const ClientHome = ({ selectClient, petList, setPetList, setSession, trainingSes
         return new Date(time * 1000).toISOString().substr(11, 5)
     }
 
+    function handleCancel(e) {
+        e.preventDefault();
+        setEditClient({});
+        setEditPet({});
+        setClientEditState(false);
+        setPetEditState(false);
+    }
+
+    function deleteClient(e) {
+        e.preventDefault();
+        console.log(selectClient._id)
+        API.deleteClient(selectClient._id)
+            .then(res => {
+                console.log(res)
+                history.push("/")
+            })
+            .catch(err => console.log(err))
+    }
+
     function formatDate(date) {
         const options = {
             weekday: "long",
@@ -118,7 +137,7 @@ const ClientHome = ({ selectClient, petList, setPetList, setSession, trainingSes
                         {selectPet ?
                             <>
                                 {selectPet.map((pet, index) => (
-                                    <>
+                                    <div key={index}>
                                         <div className="row header_row" style={{ marginTop: "2rem" }}>
                                             <div className="col">
                                                 <h2>Pet Info</h2>
@@ -128,17 +147,15 @@ const ClientHome = ({ selectClient, petList, setPetList, setSession, trainingSes
                                             </div>
                                         </div>
                                         <hr style={{ marginTop: "0" }} />
-                                        <div key={index}>
-                                            <h5>Name:</h5>
-                                            <h5><span>{pet.name}</span></h5>
-                                            <h5>Breed:</h5>
-                                            <h5><span>{pet.breed}</span></h5>
-                                            <h5>Program:</h5>
-                                            <h5><span>{pet.program}</span></h5>
-                                            <h5>Starting:</h5>
-                                            <h5><span>{pet.start_date}</span></h5>
-                                        </div>
-                                    </>
+                                        <h5>Name:</h5>
+                                        <h5><span>{pet.name}</span></h5>
+                                        <h5>Breed:</h5>
+                                        <h5><span>{pet.breed}</span></h5>
+                                        <h5>Program:</h5>
+                                        <h5><span>{pet.program}</span></h5>
+                                        <h5>Starting:</h5>
+                                        <h5><span>{pet.start_date}</span></h5>
+                                    </div>
                                 ))}
                             </>
                             :
@@ -280,10 +297,10 @@ const ClientHome = ({ selectClient, petList, setPetList, setSession, trainingSes
 
                             <div className="row">
                                 <div className="col button_col">
-                                    <FormBtn><i className="fas fa-times-circle"></i></FormBtn>
+                                    <FormBtn onClick={handleCancel}><i className="fas fa-times-circle"></i></FormBtn>
                                 </div>
                                 <div className="col button_col">
-                                    <FormBtn><i className="fas fa-trash"></i></FormBtn>
+                                    <FormBtn id={selectClient._id} onClick={deleteClient}><i className="fas fa-trash"></i></FormBtn>
                                 </div>
                                 <div className="col button_col">
                                     <FormBtn><i className="fas fa-save"></i></FormBtn>
@@ -330,7 +347,7 @@ const ClientHome = ({ selectClient, petList, setPetList, setSession, trainingSes
                                 value={newPet.notes || ""} />
                             <div className="row">
                                 <div className="col button_col">
-                                    <FormBtn><i className="fas fa-times-circle"></i></FormBtn>
+                                    <FormBtn onClick={handleCancel}><i className="fas fa-times-circle"></i></FormBtn>
                                 </div>
                                 <div className="col button_col">
                                     <FormBtn><i className="fas fa-trash"></i></FormBtn>
