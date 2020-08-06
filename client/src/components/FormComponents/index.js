@@ -11,7 +11,8 @@ export function Input(props) {
                 type={props.type}
                 name={props.name}
                 onChange={props.handleChange}
-                value={props.value} />
+                value={props.value}
+                defaultValue={props.defaultValue} />
         </div>
     );
 }
@@ -49,7 +50,7 @@ export function Select(props) {
                 name={props.name}
                 onChange={props.handleChange}
             >
-                <option value="" defaultValue>Choose {props.choose}</option>
+                <option value="">Choose {props.choose}</option>
                 {props.options.map((option, index) => (
                     <option key={index} value={option}>{option}</option>
                 ))}

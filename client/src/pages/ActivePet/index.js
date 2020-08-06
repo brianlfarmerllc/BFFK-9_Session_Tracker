@@ -39,17 +39,6 @@ const ActivePet = ({ session, trainingSessions }) => {
         return moment(input, 'HH:mm').format('h:mm A');
     }
 
-    // function to format mongo db date
-    function formatDate(date) {
-        const options = {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric"
-        };
-        return new Date(date).toLocaleDateString(options);
-    }
-
     function totalTime(time) {
         return new Date(time * 1000).toISOString().substr(11, 5)
     }

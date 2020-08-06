@@ -21,12 +21,14 @@ h5 {
     font-size: 16px;
 }
 
-.main-col .header_row {
+.main-col .header_row, .side-col .header_row {
     margin-bottom: 0;
 }
-.main-col .header_row .new_day {
+
+.main-col .header_row .new_day, .side-col .header_row .edit {
     float: right;
     margin-top: 0px;
+    font-size: 16px;
 }
 
 .side-col h5 span {
@@ -40,18 +42,45 @@ h5 {
 .main-col button {
     max-width: 175px;
 }
+
 .main-col button:first-child {
     font-size: 16px;
+}
+
+.popup .row {
+    margin: 0 0 20px 0;
+}
+
+.popup .row .button_col {
+    box-shadow: unset;
+    margin: 0;
+}
+
+.popup .row .button_col button {
+    margin: 0;
 }
 
 .popup .modal-row .col {
     box-shadow: none;
     margin: 0;
-    padding: 0 12px 0 12px;
+    padding: 0;
     min-height: none;
     height: auto;
 }
 
+.popup .modal-row .left-col .form-group {
+    width: 95%;
+    float: left;
+}
+
+.popup .modal-row .right-col .form-group {
+    width: 95%;
+    float: right;
+}
+
+.popup h2 {
+    font-size: 25px;
+}
 
 @media (max-width:1625px) {
     h5 {
@@ -59,13 +88,14 @@ h5 {
     }
 }
 
-@media (max-width: 768px){
-    .popup label{
-    font-size: 12px;
+@media (max-width: 768px) {
+    .popup label {
+        font-size: 12px;
     }
 }
-@media (max-width: 360px){
-    .popup label{
-    font-size: 10px;
+
+@media (max-width: 360px) {
+    .popup label {
+        font-size: 10px;
     }
 }

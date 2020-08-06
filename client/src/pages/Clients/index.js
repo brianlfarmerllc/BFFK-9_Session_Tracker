@@ -8,6 +8,7 @@ import Form from "../../components/Form"
 
 const Clients = ({ form, setForm, setSelectClient}) => {
     const [clientList, setClientList] = useState([])
+   
     const history = useHistory();
 
     useEffect(() => {
