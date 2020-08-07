@@ -12,6 +12,7 @@ router
   .route("/:_id")
   .get((req, res) => controller.findAllClientPets(req, res, db.Pet))
   .patch((req, res) => controller.findOneUpdate(req, res, db.Pet))
+  .delete((req, res) => controller.remove2(req, res, db.Pet))
   
 
 

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const db = require("./sessions");
 
 petSchema = new Schema(
   {
@@ -15,6 +16,17 @@ petSchema = new Schema(
     timestamps: true
   }
 );
+
+petSchema.pre('remove', async function (next) {
+  try {
+    await db.find({ petId: { $in: this.id } })
+      .then(items => { items.forEach(item => item.remove()) })
+      .then(next())
+  } catch (err) {
+    console.log(err)
+    next(err)
+  }
+})
 
 const Pet = mongoose.model("Pet", petSchema);
 

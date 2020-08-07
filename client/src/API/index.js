@@ -51,6 +51,15 @@ export default {
     return json;
   },
 
+  async deletePet(petId) {
+    const res = await fetch("/api/pet/" + petId, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" }
+    });
+    const json = await res.json();
+    return json;
+  },
+
   async returnPets() {
     let res;
     try {

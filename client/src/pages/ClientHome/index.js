@@ -7,6 +7,7 @@ import TrainingCard from "../../components/TrainingCard"
 import Modal from "../../components/Modal"
 import API from "../../API"
 import Form from "../../components/Form"
+import ActivePet from '../ActivePet';
 
 const ClientHome = ({ selectClient, setSelectClient, setSession, trainingSessions, setTrainingSessions }) => {
     const [newPet, setNewPet] = useState({});
@@ -122,6 +123,19 @@ const ClientHome = ({ selectClient, setSelectClient, setSession, trainingSession
         API.deleteClient(selectClient._id)
             .then(res => {
                 setEditClient({})
+                history.push("/")
+            })
+            .catch(err => console.log(err))
+    }
+
+    function deletePet(e) {
+        e.preventDefault();
+        const petId = e.target.id 
+        API.deletePet(petId)
+            .then(res => {
+                console.log(res)
+                setEditPet({})
+                setPetEditState(false)
                 history.push("/")
             })
             .catch(err => console.log(err))
@@ -391,7 +405,7 @@ const ClientHome = ({ selectClient, setSelectClient, setSession, trainingSession
                                     <FormBtn onClick={handleCancel}><i className="fas fa-times-circle"></i></FormBtn>
                                 </div>
                                 <div className="col button_col">
-                                    <FormBtn><i className="fas fa-trash"></i></FormBtn>
+                                    <FormBtn id={activePet._id} onClick={deletePet}><i className="fas fa-trash"></i></FormBtn>
                                 </div>
                                 <div className="col button_col">
                                     <FormBtn onClick={updatePet}><i className="fas fa-save"></i></FormBtn>

@@ -27,7 +27,6 @@ function App() {
           <Route exact path="/clients/home"
             render={() => selectClient === undefined ? <Redirect to="/" /> :
               <ClientHome
-                // loadPets={loadPets}
                 selectClient={selectClient[0]}
                 setSelectClient={setSelectClient}
                 setSession={setSession}
