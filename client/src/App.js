@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Switch, Route, } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import API from "./API"
 import Header from "./components/Header"
 import Clients from "./pages/Clients"
@@ -10,19 +10,8 @@ import './App.css';
 function App() {
   const [form, setForm] = useState({})
   const [selectClient, setSelectClient] = useState({})
-  const [petList, setPetList] = useState([])
   const [session, setSession] = useState("")
   const [trainingSessions, setTrainingSessions] = useState([])
-
-  useEffect(() => {
-    loadPets()
-  }, [])
-
-  function loadPets() {
-    API.returnPets()
-      .then(res => setPetList(res))
-      .catch(err => console.log(err))
-  }
 
   return (
     <Router>
@@ -35,19 +24,21 @@ function App() {
               setForm={setForm}
               setSelectClient={setSelectClient} />
           </Route>
-          <Route exact path="/clients/home">
-            <ClientHome
-              selectClient={selectClient[0]}
-              petList={petList}
-              setSession={setSession}
-              setPetList={setPetList}
-              trainingSessions={trainingSessions}
-              setTrainingSessions={setTrainingSessions} />
-          </Route>
+          <Route exact path="/clients/home"
+            render={() => selectClient === undefined ? <Redirect to="/" /> :
+              <ClientHome
+                // loadPets={loadPets}
+                selectClient={selectClient[0]}
+                setSelectClient={setSelectClient}
+                setSession={setSession}
+                trainingSessions={trainingSessions}
+                setTrainingSessions={setTrainingSessions} />
+            }
+          />
           <Route exact path="/training">
             <ActivePet
-              session={session} 
-              trainingSessions={trainingSessions}/>
+              session={session}
+              trainingSessions={trainingSessions} />
           </Route>
         </Switch>
       </main>

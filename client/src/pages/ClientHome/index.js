@@ -8,7 +8,7 @@ import Modal from "../../components/Modal"
 import API from "../../API"
 import Form from "../../components/Form"
 
-const ClientHome = ({ selectClient, petList, setPetList, setSession, trainingSessions, setTrainingSessions }) => {
+const ClientHome = ({ selectClient, setSelectClient, setSession, trainingSessions, setTrainingSessions }) => {
     const [newPet, setNewPet] = useState({});
     const [selectPet, setSelectPet] = useState();
     const [activePet, setActivePet] = useState({});
@@ -17,30 +17,43 @@ const ClientHome = ({ selectClient, petList, setPetList, setSession, trainingSes
     const [petEditState, setPetEditState] = useState(false);
     const [editPet, setEditPet] = useState({});
 
-
     const history = useHistory();
 
-    useEffect(() => {
-        const clientPets = petList.filter(pet => pet.clientId === selectClient._id)
-
-        if (clientPets[0] !== undefined) {
-            API.getPetSessionsByPetId(clientPets[0]._id)
-                .then(res => setTrainingSessions(res))
+    function clientsPets() {
+        if (selectClient !== undefined) {
+            API.getClientPets(selectClient._id)
+                .then(res => {
+                    if (res.length > 0) {
+                        setSelectPet(res)
+                        setActivePet(res[0])
+                        API.getPetSessionsByPetId(res[0]._id)
+                            .then(res => setTrainingSessions(res))
+                            .catch(err => console.log(err))
+                    } else {
+                        return
+                    }
+                })
                 .catch(err => console.log(err))
-        }
+        } else { history.push("/") }
+    }
 
-        if (clientPets.length > 0) {
-            setSelectPet(clientPets)
-            setActivePet(clientPets[0])
-        } else {
-            return
-        }
-
+    useEffect(() => {
+        clientsPets()
     }, [])
 
     function handleChange(e) {
         const { name, value } = e.target
         setNewPet({ ...newPet, [name]: value })
+    }
+
+    function handleEditClient(e) {
+        const { name, value } = e.target
+        setEditClient({ ...editClient, [name]: value })
+    }
+
+    function handleEditPet(e) {
+        const { name, value } = e.target
+        setEditPet({ ...editPet, [name]: value })
     }
 
     function handlePetSubmit(e) {
@@ -50,7 +63,30 @@ const ClientHome = ({ selectClient, petList, setPetList, setSession, trainingSes
                 setSelectPet([res])
                 setActivePet(res)
                 setNewPet({})
-                setPetList([...petList, res])
+                setTrainingSessions([])
+            })
+            .catch(err => console.log(err))
+    }
+
+    function updateClient(e) {
+        e.preventDefault();
+        API.updateClientInfo(selectClient._id, editClient)
+            .then(res => {
+                setSelectClient([res])
+                setEditClient({})
+                setClientEditState(false)
+            })
+            .catch(err => console.log(err))
+
+    }
+
+    function updatePet(e) {
+        e.preventDefault();
+        API.updatePetInfo(activePet._id, editPet)
+            .then(res => {
+                clientsPets()
+                setEditPet({})
+                setPetEditState(false);
             })
             .catch(err => console.log(err))
     }
@@ -73,10 +109,6 @@ const ClientHome = ({ selectClient, petList, setPetList, setSession, trainingSes
         history.push("/training")
     }
 
-    function totalTime(time) {
-        return new Date(time * 1000).toISOString().substr(11, 5)
-    }
-
     function handleCancel(e) {
         e.preventDefault();
         setEditClient({});
@@ -87,13 +119,16 @@ const ClientHome = ({ selectClient, petList, setPetList, setSession, trainingSes
 
     function deleteClient(e) {
         e.preventDefault();
-        console.log(selectClient._id)
         API.deleteClient(selectClient._id)
             .then(res => {
-                console.log(res)
+                setEditClient({})
                 history.push("/")
             })
             .catch(err => console.log(err))
+    }
+
+    function totalTime(time) {
+        return new Date(time * 1000).toISOString().substr(11, 5)
     }
 
     function formatDate(date) {
@@ -271,39 +306,45 @@ const ClientHome = ({ selectClient, petList, setPetList, setSession, trainingSes
                         >
                             <Input
                                 htmlFor="name" label="Clients Name *" type="text"
-                                name="name" handleChange={handleChange}
+                                name="name" handleChange={handleEditClient}
                                 defaultValue={selectClient.name} />
                             <Input
                                 htmlFor="phone" label="Phone Number *" type="text"
-                                name="phone" handleChange={handleChange}
+                                name="phone" handleChange={handleEditClient}
                                 defaultValue={selectClient.phone} />
                             <Input
                                 htmlFor="email" label="Email *" type="text"
-                                name="email" handleChange={handleChange}
+                                name="email" handleChange={handleEditClient}
                                 defaultValue={selectClient.email} />
                             <Input
                                 htmlFor="address" label="Home Address *" type="text"
-                                name="address" handleChange={handleChange}
+                                name="address" handleChange={handleEditClient}
                                 defaultValue={selectClient.address} />
                             <Input
                                 htmlFor="city" label="City *" type="text"
-                                name="city" handleChange={handleChange}
+                                name="city" handleChange={handleEditClient}
                                 defaultValue={selectClient.city} />
                             <Select
                                 htmlFor="source" label="How did they find me *" type="text"
-                                name="source" handleChange={handleChange}
+                                name="source" handleChange={handleEditClient}
                                 defaultValue={selectClient.source} choose={"Source"}
                                 options={["Client Referal", "Instagram", "Paws in The City", "Vet Partnership", "Other"]} />
 
                             <div className="row">
                                 <div className="col button_col">
-                                    <FormBtn onClick={handleCancel}><i className="fas fa-times-circle"></i></FormBtn>
+                                    <FormBtn onClick={handleCancel}>
+                                        <i className="fas fa-times-circle"></i>
+                                    </FormBtn>
                                 </div>
                                 <div className="col button_col">
-                                    <FormBtn id={selectClient._id} onClick={deleteClient}><i className="fas fa-trash"></i></FormBtn>
+                                    <FormBtn id={selectClient._id} onClick={deleteClient}>
+                                        <i className="fas fa-trash"></i>
+                                    </FormBtn>
                                 </div>
                                 <div className="col button_col">
-                                    <FormBtn><i className="fas fa-save"></i></FormBtn>
+                                    <FormBtn onClick={updateClient}>
+                                        <i className="fas fa-save"></i>
+                                    </FormBtn>
                                 </div>
                             </div>
                         </Form>
@@ -318,33 +359,33 @@ const ClientHome = ({ selectClient, petList, setPetList, setSession, trainingSes
                                 <div className="col left-col">
                                     <Input
                                         htmlFor="name" label="Pets Name *" type="text"
-                                        name="name" handleChange={handleChange}
-                                        value={newPet.name || ""} />
+                                        name="name" handleChange={handleEditPet}
+                                        defaultValue={activePet.name} />
                                 </div>
                                 <div className="col right-col">
                                     <Input
                                         htmlFor="breed" label="Breed *" type="text"
-                                        name="breed" handleChange={handleChange}
-                                        value={newPet.breed || ""} />
+                                        name="breed" handleChange={handleEditPet}
+                                        defaultValue={activePet.breed} />
                                 </div>
                             </div>
                             <Select
                                 htmlFor="program" label="Program *" type="text"
-                                name="program" handleChange={handleChange}
-                                value={newPet.program || ""} choose={"Program"}
+                                name="program" handleChange={handleEditPet}
+                                defaultValue={activePet.program} choose={"Program"}
                                 options={["Private Lesson", "One Week B&T", "Two Week B&T"]} />
                             <Input
                                 htmlFor="start_date" label="Start Date (MM/DD/YY) *" type="text"
-                                name="start_date" handleChange={handleChange}
-                                value={newPet.start_date || ""} />
+                                name="start_date" handleChange={handleEditPet}
+                                defaultValue={activePet.start_date} />
                             <Text
                                 htmlFor="issues" label="Issues *" type="text"
-                                name="issues" handleChange={handleChange}
-                                value={newPet.issues || ""} />
+                                name="issues" handleChange={handleEditPet}
+                                defaultValue={activePet.issues} />
                             <Text
                                 htmlFor="notes" label="Notes" type="text"
-                                name="notes" handleChange={handleChange}
-                                value={newPet.notes || ""} />
+                                name="notes" handleChange={handleEditPet}
+                                defaultValue={activePet.notes} />
                             <div className="row">
                                 <div className="col button_col">
                                     <FormBtn onClick={handleCancel}><i className="fas fa-times-circle"></i></FormBtn>
@@ -353,7 +394,7 @@ const ClientHome = ({ selectClient, petList, setPetList, setSession, trainingSes
                                     <FormBtn><i className="fas fa-trash"></i></FormBtn>
                                 </div>
                                 <div className="col button_col">
-                                    <FormBtn><i className="fas fa-save"></i></FormBtn>
+                                    <FormBtn onClick={updatePet}><i className="fas fa-save"></i></FormBtn>
                                 </div>
                             </div>
                         </Form>

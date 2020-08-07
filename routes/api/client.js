@@ -11,6 +11,7 @@ router
 router
   .route("/:_id")
   .delete((req, res) => controller.remove2(req, res, db.Client))
+  .patch((req, res) => controller.findOneUpdate(req, res, db.Client))
   
   
 

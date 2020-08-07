@@ -36,7 +36,8 @@ export function Text(props) {
                 name={props.name}
                 onChange={props.handleChange}
                 value={props.value}
-                rows={props.rows} />
+                rows={props.rows}
+                defaultValue={props.defaultValue} />
         </div>
     );
 }

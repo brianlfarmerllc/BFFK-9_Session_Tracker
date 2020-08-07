@@ -8,6 +8,13 @@ module.exports = {
       .then((dbModel) => res.json(dbModel))
       .catch((err) => res.status(422).json(err));
   },
+  findAllClientPets: function (req, res, model) {
+    model
+      .find({ clientId: req.params._id })
+      .sort({ createdAt: -1 })
+      .then((dbModel) => res.json(dbModel))
+      .catch((err) => res.status(422).json(err));
+  },
   // find all sessions and sort by oldest first
   findAllSessions: function (req, res, model) {
     model

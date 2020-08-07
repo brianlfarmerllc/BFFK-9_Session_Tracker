@@ -8,6 +8,13 @@ router
   .get((req, res) => controller.findAll(req, res, db.Pet))
   .post((req, res) => controller.create(req, res, db.Pet));
 
+router
+  .route("/:_id")
+  .get((req, res) => controller.findAllClientPets(req, res, db.Pet))
+  .patch((req, res) => controller.findOneUpdate(req, res, db.Pet))
+  
+
+
 
 
   module.exports = router;

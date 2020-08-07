@@ -30,6 +30,16 @@ export default {
     return json;
   },
 
+  async updateClientInfo(clientId, clientInfo) {
+    const res = await fetch("/api/client/" + clientId, {
+      method: "PATCH",
+      body: JSON.stringify(clientInfo),
+      headers: { "Content-Type": "application/json" }
+    });
+    const json = await res.json();
+    return json;
+  },
+
   // pet information
   async addPet(pet) {
     const res = await fetch("/api/pet/", {
@@ -48,6 +58,27 @@ export default {
     } catch (err) {
       console.log(err)
     }
+    const json = await res.json();
+    return json;
+  },
+
+  async getClientPets(clientId) {
+    let res;
+    try {
+      res = await fetch("/api/pet/" + clientId);
+    } catch (err) {
+      console.log(err)
+    }
+    const json = await res.json();
+    return json;
+  },
+
+  async updatePetInfo(petId, petInfo) {
+    const res = await fetch("/api/pet/" + petId, {
+      method: "PATCH",
+      body: JSON.stringify(petInfo),
+      headers: { "Content-Type": "application/json" }
+    });
     const json = await res.json();
     return json;
   },
