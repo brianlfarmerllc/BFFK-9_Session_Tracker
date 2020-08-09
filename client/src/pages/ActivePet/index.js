@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react'; 
+import React, { useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 import "./active_pet.css"
 import moment from 'moment';
-import API from "../../API"
+import API from "../../API";
+import { Select } from "../../components/FormComponents";
 import { Container, MainRow, MainCol } from '../../components/Grid';
 import Modal from "../../components/Modal"
 import TimePicker from 'react-time-picker';
@@ -191,6 +192,18 @@ const ActivePet = ({ session, trainingSessions }) => {
                                     onChange={endTime}
                                 />
                             </div>
+                            <div className="col time select-time">
+                                <h6 style={{ marginTop: "5px" }}>Activity</h6>
+                                <select className="form-select"
+                                    name="activity"
+                                    onChange={handleChange}
+                                >
+                                    <option value="">Choose...</option>
+                                    <option value="Active">Active</option>
+                                    <option value="Duration">Duration</option>
+                                    <option value="Excursion">Excursion</option>
+                                </select>
+                            </div>
                             <textarea
                                 className="col description"
                                 placeholder="Session Notes"
@@ -200,7 +213,7 @@ const ActivePet = ({ session, trainingSessions }) => {
                             >
                             </textarea>
                             <button
-                                disabled={!(block.start && block.end && block.session_notes)}
+                                disabled={!(block.start && block.end && block.activity && block.activity !== "" && block.session_notes)}
                                 type="submit"
                                 onClick={handleSubmit}
                                 className="btn saveBtn col"
@@ -214,7 +227,7 @@ const ActivePet = ({ session, trainingSessions }) => {
                             activeSession[0].training_block.map((timeBlock, index) => (
                                 <div className="row time-block" key={index}>
                                     <h5 >
-                                        Session {index + 1} - Time: {timeDiff(timeBlock.start, timeBlock.end)}
+                                        Session {index + 1} - {timeBlock.activity} Time: {timeDiff(timeBlock.start, timeBlock.end)}
                                     </h5>
                                     <div className="col time">
                                         <h6 style={{ marginTop: "15px" }}>Start Time</h6>
@@ -247,8 +260,7 @@ const ActivePet = ({ session, trainingSessions }) => {
                         {activeSession.length > 0 ?
                             <>
                                 <div className="row header-row" style={{ marginTop: "2rem" }}>
-                                    <h4 style={{ marginBottom: "16px" }}>Daily Summary Time {totalTime(activeSession[0].total_sec)} </h4>
-                                    {/* <h4>Daily Training Time {totalTime(activeSession[0].total_sec)}</h4> */}
+                                    <h4 style={{ marginBottom: "16px" }}>Daily Summary-Time {totalTime(activeSession[0].total_sec)} </h4>
                                 </div>
                                 <div className="row time-block">
                                     <textarea
@@ -302,6 +314,18 @@ const ActivePet = ({ session, trainingSessions }) => {
                                         onChange={updateEndTime}
                                     />
                                 </div>
+                                <div className="col time select-time">
+                                    <h6 style={{ marginTop: "5px" }}>Activity - {timeToEdit[0].activity}</h6>
+                                    <select className="form-select"
+                                        name="training_block.$.activity"
+                                        onChange={updateHandleChange}
+                                    >
+                                        <option value="">Choose...</option>
+                                        <option value="Active">Active</option>
+                                        <option value="Duration">Duration</option>
+                                        <option value="Excursion">Excursion</option>
+                                    </select>
+                                </div>
                                 <textarea
                                     className="col description"
                                     placeholder="Session Notes"
@@ -350,7 +374,7 @@ const ActivePet = ({ session, trainingSessions }) => {
             {
                 deleteState === true ?
                     <Modal>
-                        <MainCol className="col main-col active-pet-main-col" style={{margin: "auto auto"}}>
+                        <MainCol className="col main-col active-pet-main-col" style={{ margin: "auto auto" }}>
                             <div className="row header-row">
                                 <h4>Are you sure you want to delete the entire day? Deleting the day will also remove all this days session info.</h4>
                             </div>

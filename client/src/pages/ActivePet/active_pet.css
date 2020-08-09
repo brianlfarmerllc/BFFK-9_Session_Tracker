@@ -31,9 +31,17 @@
       float: right;
   }
 
+  .active-pet-main-col .time-block .time .form-select {
+    height:24px;
+    width: 106px;
+    font-size: 1rem;
+    padding: 0 4px 0 4px;
+    margin: 0 auto;
+  }
+
   textarea {
       outline: none;
-      resize: none;
+      
       background: rgba(0, 0, 0, 0.1);
       max-width: 800px;
       border: 0;
@@ -155,13 +163,14 @@
   .popup .active-pet-main-col .time {
       max-width: none;
       min-width: 40%;
-      margin: 2em 1em 1em 1em;
+      margin: 1em 1em 1em 1em;
       padding: 0 0 1em 0;
       background-color: #5383d3;
       color: white;
       border-radius: 4px;
       align-items: center;
   }
+  
 
   .popup .active-pet-main-col .btn {
       max-width: none;
@@ -214,7 +223,7 @@
       }
       .active-pet-main-col .time {
           max-width: none;
-          min-width: 40%;
+          min-width: 25%;
           margin: 1em 1em 1em 1em;
           padding: 0 0 1em 0;
       }
@@ -234,6 +243,14 @@
       }
   }
 
+  @media only screen and (max-width: 800px) {
+    .active-pet-main-col .time-block .select-time {
+        max-width: none;
+        min-width: 80%;
+        margin-top: 0;
+    }
+  }
+
   @media only screen and (max-width: 674px) {
       .active-pet-main-col {
           padding-left: 0;
@@ -248,6 +265,7 @@
           min-width: 80%;
           margin: 1em 1em 1em 1em;
           padding: 0 0 1em 0;
+          margin-top: 0;
       }
       .time-block h5 {
           text-align: center;

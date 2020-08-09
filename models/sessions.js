@@ -10,6 +10,7 @@ sessionSchema = new Schema(
                 session_notes: { type: String },
                 end: { type: String },
                 sec: { type: Number },
+                activity: {type: String},
             },
 
         ],
@@ -28,6 +29,8 @@ sessionSchema.virtual("total_sec").get(function () {
         return total + training_block.sec
     }, 0);
 })
+
+sessionSchema.virtual()
 
 const Session = mongoose.model("Session", sessionSchema);
 
