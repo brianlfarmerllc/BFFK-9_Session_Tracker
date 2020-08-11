@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
-import API from "./API"
 import Header from "./components/Header"
 import Clients from "./pages/Clients"
 import ClientHome from "./pages/ClientHome"

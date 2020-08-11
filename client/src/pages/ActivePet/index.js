@@ -3,13 +3,9 @@ import { useHistory } from "react-router-dom";
 import "./active_pet.css"
 import moment from 'moment';
 import API from "../../API";
-import { Select } from "../../components/FormComponents";
 import { Container, MainRow, MainCol } from '../../components/Grid';
 import Modal from "../../components/Modal"
 import TimePicker from 'react-time-picker';
-
-
-
 
 const ActivePet = ({ session, trainingSessions }) => {
     const [block, setBlock] = useState({})
@@ -26,6 +22,10 @@ const ActivePet = ({ session, trainingSessions }) => {
         const active = trainingSessions.filter(trainingSession => trainingSession._id === session);
         setActiveSession(active);
     }, [])
+
+    let active = 0;
+    let duration = 0;
+    let excursion = 0;
 
     // function to get diff between start and stop times
     function timeDiff(startTime, endTime) {
@@ -44,7 +44,58 @@ const ActivePet = ({ session, trainingSessions }) => {
         return new Date(time * 1000).toISOString().substr(11, 5)
     }
 
-    // handles the on change when creating new 
+    function activeTime() {
+        if (activeSession.length > 0) {
+            if (activeSession[0].training_block.length > 0) {
+                var activeArr = activeSession[0].training_block.filter(session => session.activity === "Active")
+                let secondsArr = activeArr.map(session => session.sec)
+                active = secondsArr.reduce((total, amount) => {
+                    return total + amount
+                }, active)
+            } else {
+                return
+            }
+        } else {
+            return
+        }
+    }
+    activeTime()
+
+    function durationTime() {
+        if (activeSession.length > 0) {
+            if (activeSession[0].training_block.length > 0) {
+                var activeArr = activeSession[0].training_block.filter(session => session.activity === "Duration")
+                let secondsArr = activeArr.map(session => session.sec)
+                duration = secondsArr.reduce((total, amount) => {
+                    return total + amount
+                }, duration)
+            } else {
+                return
+            }
+        } else {
+            return
+        }
+    }
+    durationTime()
+
+    function excursionTime() {
+        if (activeSession.length > 0) {
+            if (activeSession[0].training_block.length > 0) {
+                var activeArr = activeSession[0].training_block.filter(session => session.activity === "Excursion")
+                let secondsArr = activeArr.map(session => session.sec)
+                excursion = secondsArr.reduce((total, amount) => {
+                    return total + amount
+                },excursion)
+            } else {
+                return
+            }
+        } else {
+            return
+        }
+    }
+    excursionTime()
+
+    // handles the on change when creating new
     function startTime(time) {
         setBlock({ ...block, start: time })
     };
@@ -120,7 +171,7 @@ const ActivePet = ({ session, trainingSessions }) => {
         const selectTimeBlock = activeSession[0].training_block.filter(session => session._id === blockId)
         setTimeToEdit(selectTimeBlock)
         setEditState(true)
-    }
+    };
 
     function handleDelete(e) {
         e.preventDefault()
@@ -131,7 +182,8 @@ const ActivePet = ({ session, trainingSessions }) => {
                 setEditState(false)
             })
             .catch(err => console.log(err))
-    }
+    };
+
     function handleDeleteDay(e) {
         e.preventDefault()
         API.deleteDay(activeSession[0]._id)
@@ -140,18 +192,18 @@ const ActivePet = ({ session, trainingSessions }) => {
                 setDeleteState(false)
             })
             .catch(err => console.log(err))
-    }
+    };
 
     function handleAlert(e) {
         e.preventDefault()
         setDeleteState(true)
-    }
+    };
 
     function handleCancel(e) {
         e.preventDefault()
         setEditState(false)
         setDeleteState(false)
-    }
+    };
 
     return (
         <>
@@ -261,6 +313,10 @@ const ActivePet = ({ session, trainingSessions }) => {
                             <>
                                 <div className="row header-row" style={{ marginTop: "2rem" }}>
                                     <h4 style={{ marginBottom: "16px" }}>Daily Summary-Time {totalTime(activeSession[0].total_sec)} </h4>
+                                    <h5>Active Time: {totalTime(active)}</h5>
+                                    <h5>Duration Time: {totalTime(duration)}</h5>
+                                    <h5>Excursion Time: {totalTime(excursion)}</h5>
+
                                 </div>
                                 <div className="row time-block">
                                     <textarea

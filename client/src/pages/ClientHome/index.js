@@ -7,7 +7,6 @@ import TrainingCard from "../../components/TrainingCard"
 import Modal from "../../components/Modal"
 import API from "../../API"
 import Form from "../../components/Form"
-import ActivePet from '../ActivePet';
 
 const ClientHome = ({ selectClient, setSelectClient, setSession, trainingSessions, setTrainingSessions }) => {
     const [newPet, setNewPet] = useState({});

@@ -1,6 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const routes = require("./routes");
+require('dotenv').config()
+
 
 const PORT = process.env.PORT || 3001;
 
@@ -19,7 +21,7 @@ if (process.env.NODE_ENV === "production") {
 app.use(routes);
 
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/bffk9", { useNewUrlParser: true, useUnifiedTopology: true },);
+mongoose.connect(process.env.MONGODB_URI || process.env.Atlas_Connect, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false },);
 
 // Start the API server
 app.listen(PORT, () => {

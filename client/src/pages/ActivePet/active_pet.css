@@ -31,6 +31,10 @@
       float: right;
   }
 
+  .active-pet-main-col .header-row h5 {
+    padding-left: 0;
+  }
+
   .active-pet-main-col .time-block .time .form-select {
     height:24px;
     width: 106px;
@@ -214,6 +218,9 @@
       .active-pet-main-col .header-row .delete_button {
           margin: auto;
           max-width: 174px;
+      }
+      .active-pet-main-col .header-row h5 {
+        text-align: center;
       }
       .active-pet-main-col h4 {
           text-align: center;

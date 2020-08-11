@@ -30,8 +30,6 @@ sessionSchema.virtual("total_sec").get(function () {
     }, 0);
 })
 
-sessionSchema.virtual()
-
 const Session = mongoose.model("Session", sessionSchema);
 
 module.exports = Session;
