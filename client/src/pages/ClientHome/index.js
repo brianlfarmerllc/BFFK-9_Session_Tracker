@@ -14,6 +14,7 @@ const ClientHome = ({ selectClient, setSelectClient, setSession, trainingSession
     const [activePet, setActivePet] = useState({});
     const [clientEditState, setClientEditState] = useState(false);
     const [editClient, setEditClient] = useState({});
+    const [addPet, setAddPet] = useState(false)
     const [petEditState, setPetEditState] = useState(false);
     const [editPet, setEditPet] = useState({});
 
@@ -30,7 +31,7 @@ const ClientHome = ({ selectClient, setSelectClient, setSession, trainingSession
                             .then(res => setTrainingSessions(res))
                             .catch(err => console.log(err))
                     } else {
-                        return
+                        setAddPet(true)
                     }
                 })
                 .catch(err => console.log(err))
@@ -64,6 +65,7 @@ const ClientHome = ({ selectClient, setSelectClient, setSession, trainingSession
                 setActivePet(res)
                 setNewPet({})
                 setTrainingSessions([])
+                setAddPet(false)
             })
             .catch(err => console.log(err))
     }
@@ -270,7 +272,7 @@ const ClientHome = ({ selectClient, setSelectClient, setSession, trainingSession
                     </MainCol>
                 </MainRow>
             </Container>
-            {!selectPet && selectClient ?
+            { addPet === true  ?
                 <Modal>
                     <Form header={"Add Pet Info"}>
                         <div className="row modal-row">
