@@ -101,5 +101,5 @@ After finishing the project and reviewing a lot of the code I am proud of what I
 
 ## Author
 
-- Website - [Brian Farmer](https://brianlfarmerllc-biosite.netlify.app/)
+- Website - [Portfolio Site](https://brianfarmerwebdev.netlify.app)
 - GitHub URL: - [GitHub URL](https://github.com/brianlfarmerllc)
